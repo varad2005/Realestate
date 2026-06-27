@@ -1,0 +1,1 @@
+import{j as s}from"./index-D5o8PweC.js";function p({children:a,className:e=""}){return s.jsx("div",{className:`min-h-screen pt-24 pb-20 ${e}`,children:s.jsx("div",{className:"max-w-7xl mx-auto px-6 py-10",children:a})})}export{p as P};
