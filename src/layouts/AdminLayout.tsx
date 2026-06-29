@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { ShieldAlert, LayoutDashboard, Home, Users, BarChart3, MessageSquare, Settings, Activity, Bell, LogOut, Hexagon, UserCircle, Image, ShoppingCart, PlusCircle } from 'lucide-react';
+import { ShieldAlert, LayoutDashboard, Home, Users, BarChart3, MessageSquare, Settings, Activity, Bell, LogOut, Hexagon, UserCircle, Image, ShoppingCart, PlusCircle, Globe } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 export function AdminLayout() {
@@ -141,6 +141,19 @@ export function AdminLayout() {
                 <BarChart3 size={18} />
                 Reports
               </NavLink>
+
+              <NavLink
+                to="/admin/virtual-tours"
+                className={({ isActive }) => 
+                  `w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                    isActive ? 'bg-[#FF3F6C]/10 text-[#FF3F6C]' : 'text-gray-600 hover:bg-gray-50'
+                  }`
+                }
+              >
+                <Globe size={18} />
+                360° Tours
+              </NavLink>
+
               
               <NavLink
                 to="/admin/reviews"

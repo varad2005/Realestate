@@ -2,6 +2,7 @@ import { MapPin, Star, Heart, Image as ImageIcon, PlayCircle } from 'lucide-reac
 import { useNavigate } from 'react-router-dom';
 import { propertyService, UIProperty } from '@/services/propertyService';
 import { getPropertyImage } from '@/utils/propertyImages';
+import { TourBadge } from '@/components/Property360/TourBadge';
 
 export function VerBadge({ text, kind }: { text: string; kind: "verified" | "new" }) {
   return (
@@ -69,9 +70,12 @@ export function PropertyCard({
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-        <div className="absolute top-3 left-3 flex gap-1.5">
+        <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
           {property.status === 'approved' && (
             <VerBadge text="Verified" kind="verified" />
+          )}
+          {property.hasVirtualTour && (
+            <TourBadge sceneCount={property.virtualToursCount || 1} />
           )}
         </div>
         <div className="absolute top-3 right-3">

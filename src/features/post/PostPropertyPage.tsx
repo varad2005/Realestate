@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Check, Star, Phone, MapPin, AlertCircle, MessageCircle, Smartphone, Lightbulb } from "lucide-react";
+import { Check, Star, Phone, MapPin, AlertCircle, MessageCircle, Smartphone, Lightbulb, Globe, Upload, X as XIcon, Trash2 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/lib/supabase";
 import { propertyService } from "@/services/propertyService";
+import { virtualTourService } from "@/services/virtualTourService";
 import { getPropertyImage } from "@/utils/propertyImages";
 import { useEffect } from "react";
 import { AddonService, addonService } from "@/services/addonService";
@@ -72,6 +73,11 @@ export function PostPropertyPage() {
   // Addons State
   const [availableAddons, setAvailableAddons] = useState<AddonService[]>([]);
   const [selectedAddonIds, setSelectedAddonIds] = useState<string[]>([]);
+
+  // 360° Virtual Tour Upload State
+  interface TourScene { file: File; previewUrl: string; title: string; isDefault: boolean; uploadProgress: number; }
+  const [tourScenes, setTourScenes] = useState<TourScene[]>([]);
+  const [tourUploading, setTourUploading] = useState(false);
 
   useEffect(() => {
     supabase.from('amenities').select('*').then(({data}) => {
@@ -218,8 +224,32 @@ export function PostPropertyPage() {
         imageUrl: finalImages.length > 0 ? finalImages[0].url : getPropertyImage(newProp.id),
         shortId: newProp.id.substring(0, 8).toUpperCase()
       });
+
+      // Upload 360° tour scenes (after property creation)
+      if (tourScenes.length > 0) {
+        setTourUploading(true);
+        try {
+          for (let i = 0; i < tourScenes.length; i++) {
+            const scene = tourScenes[i];
+            const { url } = await virtualTourService.uploadPanorama(scene.file, user.id, newProp.id);
+            if (url) {
+              await virtualTourService.saveTourScene({
+                propertyId: newProp.id,
+                panoramaUrl: url,
+                title: scene.title || `Scene ${i + 1}`,
+                sortOrder: i,
+                isDefault: scene.isDefault || i === 0,
+              });
+            }
+          }
+        } catch (tourErr) {
+          console.warn('Tour upload failed (non-critical):', tourErr);
+        } finally {
+          setTourUploading(false);
+        }
+      }
       
-      setStep(isDealer ? 10 : 7); // Adjust success step based on role
+      setStep(isDealer ? 11 : 8); // Adjust success step based on role
     } catch (err: any) {
       console.error("Failed to post property:", err);
       setSubmitError(err.message || "Something went wrong.");
@@ -252,7 +282,7 @@ export function PostPropertyPage() {
   const currentOptions = category === "Residential" ? resOptions : comOptions;
 
   const isDealerUser = user?.role === 'dealer' || user?.role === 'builder';
-  const isSuccessStep = isDealerUser ? step === 10 : step === 7;
+  const isSuccessStep = isDealerUser ? step === 11 : step === 8;
 
   if (started && isSuccessStep) {
     return (
@@ -364,18 +394,20 @@ export function PostPropertyPage() {
                   { num: 2, title: "Location Details", desc: locality ? locality : (city || "Step 2") },
                   { num: 3, title: "Property Profile", desc: expectedPrice ? `₹${expectedPrice}` : (bhk ? `${bhk} BHK` : "Step 3") },
                   { num: 4, title: "Media", desc: images.length > 0 ? `${images.length} Photos` : "Step 4" },
-                  { num: 5, title: "Project Info", desc: projectName ? projectName : "Step 5" },
-                  { num: 6, title: "Amenities", desc: selectedAmenities.length > 0 ? `${selectedAmenities.length} Amenities` : "Step 6" },
-                  { num: 7, title: "Location Advantages", desc: selectedLocationAdvantages.length > 0 ? `${selectedLocationAdvantages.length} Landmarks` : "Step 7" },
-                  { num: 8, title: "Highlights", desc: selectedHighlights.length > 0 ? `${selectedHighlights.length} Selected` : "Step 8" },
-                  { num: 9, title: "Add-on Services", desc: selectedAddonIds.length > 0 ? `${selectedAddonIds.length} Added` : "Step 9" }
+                  { num: 5, title: "360° Virtual Tour", desc: tourScenes.length > 0 ? `${tourScenes.length} Scene${tourScenes.length > 1 ? 's' : ''}` : "Optional" },
+                  { num: 6, title: "Project Info", desc: projectName ? projectName : "Step 6" },
+                  { num: 7, title: "Amenities", desc: selectedAmenities.length > 0 ? `${selectedAmenities.length} Amenities` : "Step 7" },
+                  { num: 8, title: "Location Advantages", desc: selectedLocationAdvantages.length > 0 ? `${selectedLocationAdvantages.length} Landmarks` : "Step 8" },
+                  { num: 9, title: "Highlights", desc: selectedHighlights.length > 0 ? `${selectedHighlights.length} Selected` : "Step 9" },
+                  { num: 10, title: "Add-on Services", desc: selectedAddonIds.length > 0 ? `${selectedAddonIds.length} Added` : "Step 10" }
                 ] : [
                   { num: 1, title: "Basic Details", desc: propType ? `${propType} for ${lookingTo}` : "Step 1" },
                   { num: 2, title: "Location Details", desc: locality ? locality : (city || "Step 2") },
                   { num: 3, title: "Property Profile", desc: expectedPrice ? `₹${expectedPrice}` : (bhk ? `${bhk} BHK` : "Step 3") },
                   { num: 4, title: "Media", desc: images.length > 0 ? `${images.length} Photos` : "Step 4" },
-                  { num: 5, title: "Highlights", desc: selectedHighlights.length > 0 ? `${selectedHighlights.length} Selected` : "Step 5" },
-                  { num: 6, title: "Add-on Services", desc: selectedAddonIds.length > 0 ? `${selectedAddonIds.length} Added` : "Step 6" }
+                  { num: 5, title: "360° Virtual Tour", desc: tourScenes.length > 0 ? `${tourScenes.length} Scene${tourScenes.length > 1 ? 's' : ''}` : "Optional" },
+                  { num: 6, title: "Highlights", desc: selectedHighlights.length > 0 ? `${selectedHighlights.length} Selected` : "Step 6" },
+                  { num: 7, title: "Add-on Services", desc: selectedAddonIds.length > 0 ? `${selectedAddonIds.length} Added` : "Step 7" }
                 ]).map((s) => {
                   const isActive = step === s.num;
                   const isPast = step > s.num;
@@ -995,7 +1027,7 @@ export function PostPropertyPage() {
                         onClick={() => setStep(5)}
                         className="bg-[#FF3F6C] text-white px-8 py-3 rounded-xl font-bold text-sm shadow-md hover:bg-[#e62e5c] transition-all hover:-translate-y-0.5"
                       >
-                        Save & Continue
+                        Save &amp; Continue
                       </button>
                       <button 
                         onClick={() => setStep(5)}
@@ -1025,7 +1057,152 @@ export function PostPropertyPage() {
               </div>
             )}
 
-            {step === 5 && user?.role !== 'dealer' && user?.role !== 'builder' && (
+            {/* ===== STEP 5: 360° Virtual Tour (ALL ROLES) ===== */}
+            {step === 5 && (
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500">
+                <button onClick={() => setStep(4)} className="text-gray-400 hover:text-[#1A1A1A] font-semibold text-sm mb-6 flex items-center gap-1 transition-colors">
+                  ← Back
+                </button>
+
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center">
+                    <Globe size={20} className="text-violet-600" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-[#1A1A1A] font-['Poppins']">360° Virtual Tour</h2>
+                    <p className="text-xs text-violet-600 font-semibold">Optional — but highly recommended</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500 mb-8">Upload equirectangular 360° panorama images. Properties with virtual tours get <span className="font-bold text-[#1A1A1A]">3x more engagement</span> from serious buyers.</p>
+
+                {/* Drop zone */}
+                <div
+                  className="border-2 border-dashed border-violet-300 rounded-2xl p-8 text-center bg-violet-50/30 hover:bg-violet-50 transition-colors cursor-pointer mb-6"
+                  onClick={() => document.getElementById('tour-upload-input')?.click()}
+                  onDragOver={(e) => { e.preventDefault(); }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+                    files.forEach(file => {
+                      setTourScenes(prev => [...prev, {
+                        file,
+                        previewUrl: URL.createObjectURL(file),
+                        title: file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
+                        isDefault: prev.length === 0,
+                        uploadProgress: 0,
+                      }]);
+                    });
+                  }}
+                >
+                  <div className="w-16 h-16 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Globe size={28} className="text-violet-500" />
+                  </div>
+                  <p className="text-violet-700 font-bold text-sm mb-1">Drag & drop 360° panorama images here</p>
+                  <p className="text-xs text-gray-500 mb-4">or click to browse • JPG, JPEG, PNG, WebP • Max 50 MB each</p>
+                  <button className="border border-violet-400 text-violet-700 font-bold px-6 py-2 rounded-xl text-sm bg-white hover:bg-violet-50 transition-colors">
+                    <Upload size={14} className="inline mr-1.5 mb-0.5" />
+                    Browse Panoramas
+                  </button>
+                  <input
+                    id="tour-upload-input"
+                    type="file"
+                    multiple
+                    accept="image/jpeg,image/jpg,image/png,image/webp"
+                    className="hidden"
+                    onChange={(e) => {
+                      const files = Array.from(e.target.files || []);
+                      files.forEach(file => {
+                        setTourScenes(prev => [...prev, {
+                          file,
+                          previewUrl: URL.createObjectURL(file),
+                          title: file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
+                          isDefault: prev.length === 0,
+                          uploadProgress: 0,
+                        }]);
+                      });
+                      e.target.value = '';
+                    }}
+                  />
+                </div>
+
+                {/* Scene list */}
+                {tourScenes.length > 0 && (
+                  <div className="space-y-3 mb-6">
+                    <p className="text-sm font-bold text-[#1A1A1A] mb-3">Selected Scenes ({tourScenes.length})</p>
+                    {tourScenes.map((scene, idx) => (
+                      <div key={idx} className={`flex gap-4 items-center bg-white border rounded-xl p-3 ${scene.isDefault ? 'border-violet-300 bg-violet-50/30' : 'border-gray-100'}`}>
+                        <img src={scene.previewUrl} alt="preview" className="w-20 h-14 object-cover rounded-lg shrink-0 border border-gray-200" />
+                        <div className="flex-1 min-w-0">
+                          <input
+                            type="text"
+                            value={scene.title}
+                            onChange={(e) => {
+                              const updated = [...tourScenes];
+                              updated[idx] = { ...updated[idx], title: e.target.value };
+                              setTourScenes(updated);
+                            }}
+                            placeholder={`Scene ${idx + 1} name`}
+                            className="w-full border border-gray-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-violet-400 font-medium"
+                          />
+                          <div className="flex items-center gap-3 mt-2">
+                            <label className="flex items-center gap-1.5 cursor-pointer text-xs font-medium">
+                              <input
+                                type="radio"
+                                name="defaultScene"
+                                checked={scene.isDefault}
+                                onChange={() => {
+                                  setTourScenes(prev => prev.map((s, i) => ({ ...s, isDefault: i === idx })));
+                                }}
+                                className="accent-violet-600"
+                              />
+                              <span className={scene.isDefault ? 'text-violet-600' : 'text-gray-500'}>Default scene</span>
+                            </label>
+                            <span className="text-xs text-gray-400">{(scene.file.size / (1024 * 1024)).toFixed(1)} MB</span>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => setTourScenes(prev => prev.filter((_, i) => i !== idx))}
+                          className="w-8 h-8 rounded-full bg-red-50 hover:bg-red-100 text-red-400 hover:text-red-600 flex items-center justify-center transition-colors shrink-0"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Info box */}
+                <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3 mb-8">
+                  <Lightbulb size={18} className="text-blue-500 shrink-0 mt-0.5" />
+                  <div className="text-xs text-blue-800">
+                    <p className="font-bold mb-1">Tips for best 360° results:</p>
+                    <ul className="space-y-1 text-blue-700 list-disc list-inside">
+                      <li>Use an equirectangular image (2:1 aspect ratio, e.g. 4000×2000px)</li>
+                      <li>Take photos with a 360° camera or a fisheye lens with stitching software</li>
+                      <li>Ensure uniform lighting — avoid harsh shadows</li>
+                      <li>Add multiple scenes for different rooms to maximise engagement</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => setStep(isDealerUser ? 6 : 6)}
+                    className="bg-[#FF3F6C] text-white px-8 py-3 rounded-xl font-bold text-sm shadow-md hover:bg-[#e62e5c] transition-all hover:-translate-y-0.5"
+                  >
+                    {tourScenes.length > 0 ? `Continue with ${tourScenes.length} Scene${tourScenes.length > 1 ? 's' : ''}` : 'Continue'}
+                  </button>
+                  <button
+                    onClick={() => { setTourScenes([]); setStep(isDealerUser ? 6 : 6); }}
+                    className="text-gray-500 font-semibold text-sm hover:text-gray-700 transition-colors"
+                  >
+                    Skip for now
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {step === 6 && user?.role !== 'dealer' && user?.role !== 'builder' && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="flex gap-10">
                   <div className="flex-1 space-y-10">
@@ -1048,7 +1225,7 @@ export function PostPropertyPage() {
                         <div className="mb-4 mt-6 text-red-500 text-sm font-semibold">{submitError}</div>
                       )}
                       <button 
-                        onClick={() => setStep(6)}
+                        onClick={() => setStep(7)}
                         className={`px-10 py-3 rounded-xl font-bold text-base shadow-md transition-all mt-8 bg-[#FF3F6C] text-white hover:bg-[#e62e5c] hover:-translate-y-0.5`}
                       >
                         Continue
@@ -1059,7 +1236,7 @@ export function PostPropertyPage() {
               </div>
             )}
 
-            {step === 5 && (user?.role === 'dealer' || user?.role === 'builder') && (
+            {step === 6 && (user?.role === 'dealer' || user?.role === 'builder') && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="flex gap-10">
                   <div className="flex-1 space-y-8">
@@ -1078,7 +1255,7 @@ export function PostPropertyPage() {
                     <button 
                         onClick={() => {
                           if(!projectName) setSubmitError("Project Name is required");
-                          else { setSubmitError(""); setStep(6); }
+                          else { setSubmitError(""); setStep(7); }
                         }}
                         className="bg-[#FF3F6C] text-white px-8 py-3 rounded-xl font-bold text-sm shadow-md hover:bg-[#e62e5c]"
                       >
@@ -1090,11 +1267,11 @@ export function PostPropertyPage() {
                 </div>
             )}
 
-            {step === 6 && (user?.role === 'dealer' || user?.role === 'builder') && (
+            {step === 7 && (user?.role === 'dealer' || user?.role === 'builder') && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="flex gap-10">
                   <div className="flex-1 space-y-8">
-                    <button onClick={() => setStep(5)} className="text-gray-400 hover:text-[#1A1A1A] font-semibold text-sm mb-6 flex items-center gap-1 transition-colors">
+                    <button onClick={() => setStep(6)} className="text-gray-400 hover:text-[#1A1A1A] font-semibold text-sm mb-6 flex items-center gap-1 transition-colors">
                       ← Back
                     </button>
                     <h2 className="text-2xl font-bold text-[#1A1A1A] font-['Poppins'] mb-1">
@@ -1110,21 +1287,21 @@ export function PostPropertyPage() {
                     </div>
 
                     <button 
-                      onClick={() => setStep(7)}
+                      onClick={() => setStep(8)}
                       className="bg-[#FF3F6C] text-white px-8 py-3 rounded-xl font-bold text-sm shadow-md hover:bg-[#e62e5c]"
                     >
-                      Save & Continue
+                      Save &amp; Continue
                     </button>
                   </div>
                 </div>
               </div>
             )}
 
-            {step === 7 && (user?.role === 'dealer' || user?.role === 'builder') && (
+            {step === 8 && (user?.role === 'dealer' || user?.role === 'builder') && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="flex gap-10">
                   <div className="flex-1 space-y-8">
-                    <button onClick={() => setStep(6)} className="text-gray-400 hover:text-[#1A1A1A] font-semibold text-sm mb-6 flex items-center gap-1 transition-colors">
+                    <button onClick={() => setStep(7)} className="text-gray-400 hover:text-[#1A1A1A] font-semibold text-sm mb-6 flex items-center gap-1 transition-colors">
                       ← Back
                     </button>
                     <h2 className="text-2xl font-bold text-[#1A1A1A] font-['Poppins'] mb-1">
@@ -1139,21 +1316,21 @@ export function PostPropertyPage() {
                     </div>
 
                     <button 
-                      onClick={() => setStep(8)}
+                      onClick={() => setStep(9)}
                       className="bg-[#FF3F6C] text-white px-8 py-3 rounded-xl font-bold text-sm shadow-md hover:bg-[#e62e5c]"
                     >
-                      Save & Continue
+                      Save &amp; Continue
                     </button>
                   </div>
                 </div>
               </div>
             )}
 
-            {step === 8 && (user?.role === 'dealer' || user?.role === 'builder') && (
+            {step === 9 && (user?.role === 'dealer' || user?.role === 'builder') && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="flex gap-10">
                   <div className="flex-1 space-y-8">
-                    <button onClick={() => setStep(7)} className="text-gray-400 hover:text-[#1A1A1A] font-semibold text-sm mb-6 flex items-center gap-1 transition-colors">
+                    <button onClick={() => setStep(8)} className="text-gray-400 hover:text-[#1A1A1A] font-semibold text-sm mb-6 flex items-center gap-1 transition-colors">
                       ← Back
                     </button>
                     <h2 className="text-2xl font-bold text-[#1A1A1A] font-['Poppins'] mb-1">
@@ -1171,7 +1348,7 @@ export function PostPropertyPage() {
                       <div className="mb-4 text-red-500 text-sm font-semibold">{submitError}</div>
                     )}
                     <button 
-                      onClick={() => setStep(9)}
+                      onClick={() => setStep(10)}
                       className={`px-10 py-3 rounded-xl font-bold text-base shadow-md transition-all mt-8 bg-[#FF3F6C] text-white hover:bg-[#e62e5c] hover:-translate-y-0.5`}
                     >
                       Continue
@@ -1207,11 +1384,11 @@ export function PostPropertyPage() {
               </div>
             )}
 
-            {((!isDealerUser && step === 6) || (isDealerUser && step === 9)) && (
+            {((!isDealerUser && step === 7) || (isDealerUser && step === 10)) && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="flex gap-10">
                   <div className="flex-1 space-y-8">
-                    <button onClick={() => setStep(isDealerUser ? 8 : 5)} className="text-gray-400 hover:text-[#1A1A1A] font-semibold text-sm mb-6 flex items-center gap-1 transition-colors">
+                    <button onClick={() => setStep(isDealerUser ? 9 : 6)} className="text-gray-400 hover:text-[#1A1A1A] font-semibold text-sm mb-6 flex items-center gap-1 transition-colors">
                       ← Back
                     </button>
                     <h2 className="text-2xl font-bold text-[#1A1A1A] font-['Poppins'] mb-1">

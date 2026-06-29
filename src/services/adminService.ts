@@ -146,6 +146,14 @@ export const adminService = {
   },
 
   async deleteProperty(propertyId: string) {
+    // Attempt to delete any 360 virtual tours from storage first
+    try {
+      const { virtualTourService } = await import('@/services/virtualTourService');
+      await virtualTourService.deleteAllScenesForProperty(propertyId);
+    } catch (e) {
+      console.error('Error cleaning up virtual tours:', e);
+    }
+
     const { error } = await supabase
       .from('properties')
       .delete()

@@ -56,6 +56,19 @@ export interface PropertyVideo {
   is_primary?: boolean;
 }
 
+export interface VirtualTour {
+  id: string;
+  property_id: string;
+  panorama_url: string;
+  thumbnail_url?: string;
+  title: string;
+  description?: string;
+  sort_order: number;
+  is_default: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface Amenity {
   id: string;
   name: string;
@@ -120,6 +133,7 @@ export interface ProjectInfo {
 export interface DetailedProperty extends Omit<Property, "image" | "amenities"> {
   images: PropertyImage[];
   videos?: PropertyVideo[];
+  virtualTours?: VirtualTour[];
   amenities: Amenity[];
   seller: Seller;
   locationDetails: LocationDetails;

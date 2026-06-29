@@ -17,6 +17,7 @@ export interface PropertyFilters {
   postedByRole?: string[];
   hasVideos?: boolean;
   hasImages?: boolean;
+  hasVirtualTour?: boolean;
   sortBy?: string; // new, price_asc, price_desc, area_desc
 }
 
@@ -58,6 +59,8 @@ export interface UIProperty {
   amenities?: string[];
   videos?: PropertyVideo[];
   property_images?: any[]; // To preserve total image count if needed
+  hasVirtualTour?: boolean; // True if property has 360° tour scenes
+  virtualToursCount?: number; // Number of interactive scenes available
 }
 
 export const propertyService = {
@@ -106,6 +109,10 @@ export const propertyService = {
         duration_seconds,
         file_size_mb,
         is_primary
+      ),
+
+      property_virtual_tours (
+        id
       )
     `;
 
@@ -160,6 +167,9 @@ export const propertyService = {
     }
     if (filters.hasImages) {
       query = query.not('property_images', 'is', null);
+    }
+    if (filters.hasVirtualTour) {
+      query = query.not('property_virtual_tours', 'is', null);
     }
 
     // Apply Sorting
@@ -236,6 +246,8 @@ export const propertyService = {
       amenities: property.amenities,
       videos: property.property_videos || [],
       property_images: property.property_images || [],
+      hasVirtualTour: (property.property_virtual_tours?.length ?? 0) > 0,
+      virtualToursCount: property.property_virtual_tours?.length ?? 0,
     }));
   },
 
@@ -358,6 +370,7 @@ Residents will enjoy world-class amenities, robust infrastructure, and seamless 
         ),
         property_images ( id, url ),
         property_videos ( id, video_url, thumbnail_url, title, duration_seconds, file_size_mb, is_primary ),
+        property_virtual_tours ( id, panorama_url, thumbnail_url, title, description, sort_order, is_default ),
         property_amenities ( amenities ( id, name, icon_name ) ),
         locations ( city, locality, address, state, pincode, lat, lng ),
         project_details ( id, project_name, builder_name, launch_year, possession_date, total_units, project_area, rera_number, marketing_tagline, description ),
@@ -446,6 +459,16 @@ Residents will enjoy world-class amenities, robust infrastructure, and seamless 
         role: data.posted_by_role || (sellerInfo?.role) || 'owner'
       },
       videos: data.property_videos || [],
+      virtualTours: (data.property_virtual_tours || []).map((t: any) => ({
+        id: t.id,
+        property_id: data.id,
+        panorama_url: t.panorama_url,
+        thumbnail_url: t.thumbnail_url || null,
+        title: t.title || 'Virtual Tour',
+        description: t.description || null,
+        sort_order: t.sort_order ?? 0,
+        is_default: t.is_default ?? false,
+      })),
       locationDetails: {
         city: loc?.city || data.city || '',
         locality: loc?.locality || '',

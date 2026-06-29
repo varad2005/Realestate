@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useProperty } from '../hooks/useProperty';
 import { PropertyGallery } from '../components/PropertyGallery';
@@ -11,11 +12,13 @@ import { StickyActionPanel } from '../components/StickyActionPanel';
 import { PropertyHighlights } from '../components/PropertyHighlights';
 import { ProjectDetails } from '../components/ProjectDetails';
 import { LocationAdvantages } from '../components/LocationAdvantages';
-import { ArrowLeft, Loader2, AlertCircle, Map as MapIcon } from 'lucide-react';
+import { VirtualTourButton, Dynamic360Modal } from '@/components/Property360';
+import { ArrowLeft, Loader2, AlertCircle } from 'lucide-react';
 
 export function PropertyDetailsPage() {
   const { id } = useParams();
   const { data: property, loading, error } = useProperty(id);
+  const [showTourModal, setShowTourModal] = useState(false);
 
   if (loading) {
     return (
@@ -39,6 +42,8 @@ export function PropertyDetailsPage() {
     );
   }
 
+  const hasTours = (property.virtualTours?.length ?? 0) > 0;
+
   return (
     <div className="bg-[#f8f9fa] min-h-screen pb-24 lg:pb-0">
       <div className="pt-28 pb-6 px-6 md:px-10 max-w-[1440px] mx-auto">
@@ -49,7 +54,20 @@ export function PropertyDetailsPage() {
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Left Column (70%) */}
           <div className="w-full lg:w-[68%] space-y-12">
-            <PropertyGallery images={property.images} videos={property.videos} />
+
+            {/* Gallery + 360° Tour Button overlay */}
+            <div className="relative">
+              <PropertyGallery images={property.images} videos={property.videos} />
+
+              {hasTours && (
+                <div className="absolute bottom-16 left-4 z-20">
+                  <VirtualTourButton
+                    onClick={() => setShowTourModal(true)}
+                    sceneCount={property.virtualTours!.length}
+                  />
+                </div>
+              )}
+            </div>
             
             <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100">
               <PropertyOverview property={property} />
@@ -105,6 +123,19 @@ export function PropertyDetailsPage() {
       </div>
 
       <StickyActionPanel property={property} />
+
+      {/* 360° Virtual Tour Modal */}
+      {hasTours && (
+        <Dynamic360Modal
+          isOpen={showTourModal}
+          onClose={() => setShowTourModal(false)}
+          tours={property.virtualTours!}
+          propertyName={property.title}
+          propertyId={property.id}
+        />
+      )}
     </div>
   );
 }
+
+

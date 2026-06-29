@@ -38,6 +38,7 @@ const AdminProfilePage = lazy(() => import('@/pages/admin/AdminProfilePage').the
 const AdminBannersPage = lazy(() => import('@/pages/admin/AdminBannersPage').then(m => ({ default: m.AdminBannersPage })));
 const AdminAddonsPage = lazy(() => import('@/pages/admin/AdminAddonsPage').then(m => ({ default: m.AdminAddonsPage })));
 const AdminAddonOrdersPage = lazy(() => import('@/pages/admin/AdminAddonOrdersPage').then(m => ({ default: m.AdminAddonOrdersPage })));
+const AdminVirtualToursPage = lazy(() => import('@/pages/admin/AdminVirtualToursPage').then(m => ({ default: m.AdminVirtualToursPage })));
 
 const Fallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-[#F5F5F6]">
@@ -207,6 +208,10 @@ export const router = createBrowserRouter([
       {
         path: 'addon-orders',
         element: <Suspense fallback={<Fallback />}><AdminAddonOrdersPage /></Suspense>
+      },
+      {
+        path: 'virtual-tours',
+        element: <Suspense fallback={<Fallback />}><AdminVirtualToursPage /></Suspense>
       }
     ]
   },

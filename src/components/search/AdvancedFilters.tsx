@@ -243,9 +243,22 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                 />
                 <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Has Images</span>
               </label>
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <input 
+                  type="checkbox" 
+                  checked={filters.hasVirtualTour || false}
+                  onChange={(e) => updateFilter('hasVirtualTour', e.target.checked ? true : undefined)}
+                  className="accent-violet-600 w-4 h-4 rounded border-gray-300"
+                />
+                <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors flex items-center gap-1.5">
+                  Has 360° Virtual Tour
+                  <span className="text-[9px] font-bold bg-violet-100 text-violet-700 px-1.5 py-0.5 rounded-full uppercase tracking-wide">New</span>
+                </span>
+              </label>
             </div>
           )}
         </div>
+
 
         {/* Amenities */}
         <div className="pb-4">
