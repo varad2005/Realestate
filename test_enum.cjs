@@ -1,7 +1,7 @@
 const { createClient } = require('@supabase/supabase-js');
 const WebSocket = require('ws');
 
-const SUPABASE_URL = process.env.VITE_SUPABASE_URL || "https://gghbeddckyaphbpbqwye.supabase.co";
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || "https://vguellwkjbbeqvhuexfg.supabase.co";
 const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {

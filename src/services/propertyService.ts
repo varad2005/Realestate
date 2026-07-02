@@ -61,6 +61,13 @@ export interface UIProperty {
   property_images?: any[]; // To preserve total image count if needed
   hasVirtualTour?: boolean; // True if property has 360° tour scenes
   virtualToursCount?: number; // Number of interactive scenes available
+  lat?: number;
+  lng?: number;
+  locality?: string;
+  priceNum?: number;
+  type?: string;
+  badge?: string;
+  possession?: string;
 }
 
 export const propertyService = {
@@ -113,6 +120,13 @@ export const propertyService = {
 
       property_virtual_tours (
         id
+      ),
+
+      locations (
+        lat,
+        lng,
+        locality,
+        city
       )
     `;
 
@@ -248,6 +262,9 @@ export const propertyService = {
       property_images: property.property_images || [],
       hasVirtualTour: (property.property_virtual_tours?.length ?? 0) > 0,
       virtualToursCount: property.property_virtual_tours?.length ?? 0,
+      lat: Array.isArray(property.locations) ? property.locations[0]?.lat : property.locations?.lat,
+      lng: Array.isArray(property.locations) ? property.locations[0]?.lng : property.locations?.lng,
+      locality: Array.isArray(property.locations) ? property.locations[0]?.locality : property.locations?.locality,
     }));
   },
 
@@ -681,6 +698,198 @@ Residents will enjoy world-class amenities, robust infrastructure, and seamless 
         console.log(`Deleting property ${createdPropertyId} due to partial failure.`);
         await supabase.from('properties').delete().eq('id', createdPropertyId);
       }
+      return { data: null, error };
+    }
+  },
+
+  /**
+   * Update an existing property
+   */
+  async updateProperty(propertyId: string, payload: any) {
+    try {
+      // 1. Update Base Property
+      const { data: updatedProp, error: propError } = await supabase
+        .from('properties')
+        .update({
+          title: payload.title,
+          description: payload.description,
+          city: payload.city,
+          price: payload.price,
+          price_num: payload.price_num,
+          price_display: payload.price_display,
+          status: payload.status || 'pending',
+          type: payload.property_type?.toLowerCase().includes('apartment') || payload.property_type?.toLowerCase().includes('flat') ? 'apartment' : 
+                payload.property_type?.toLowerCase().includes('villa') || payload.property_type?.toLowerCase().includes('house') ? 'villa' :
+                payload.property_type?.toLowerCase().includes('penthouse') ? 'penthouse' : 'apartment',
+          property_type: payload.property_type,
+          bhk: payload.bhk,
+          area_sqft: payload.area_sqft || payload.built_up_area || payload.carpet_area || payload.super_built_up_area || 0,
+          furnishing: payload.furnishing,
+          ownership: payload.ownership_type,
+          ownership_type: payload.ownership_type,
+          posted_by_role: payload.posted_by_role,
+          floor_number: payload.floor_number,
+          total_floors: payload.total_floors,
+          facing: payload.facing,
+          possession_status: payload.possession_status,
+          property_age: payload.property_age,
+          balconies: payload.balconies,
+          maintenance_charges: payload.maintenance_charges,
+          carpet_area: payload.carpet_area,
+          built_up_area: payload.built_up_area,
+          super_built_up_area: payload.super_built_up_area,
+          bathrooms: payload.bathrooms,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', propertyId)
+        .select()
+        .single();
+
+      if (propError) throw propError;
+
+      // 1.5 Update Location
+      if (payload.locality || payload.city || payload.address) {
+        // Delete old
+        await supabase.from('locations').delete().eq('property_id', propertyId);
+        // Insert new
+        const { error: locError } = await supabase
+          .from('locations')
+          .insert({
+            property_id: propertyId,
+            city: payload.city,
+            locality: payload.locality,
+            address: payload.address,
+            state: payload.state,
+            pincode: payload.pincode,
+            lat: payload.lat,
+            lng: payload.lng
+          });
+        if (locError) throw locError;
+      }
+
+      // 2. Insert Images (only new ones are passed as payload.images, old ones are kept)
+      if (payload.images && payload.images.length > 0) {
+        const imageInserts = payload.images.map((img: any, index: number) => ({
+          property_id: propertyId,
+          url: img.url,
+          is_floor_plan: false,
+          sort_order: index + (payload.existingImagesCount || 0)
+        }));
+        const { error: imgError } = await supabase
+          .from('property_images')
+          .insert(imageInserts);
+        if (imgError) throw imgError;
+      }
+
+      // 3. Insert Videos
+      if (payload.videos && payload.videos.length > 0) {
+        const videoInserts = payload.videos.map((vid: any, index: number) => ({
+          property_id: propertyId,
+          video_url: vid.url,
+          title: vid.title,
+          is_primary: index === (payload.primaryVideoIndex || 0),
+          sort_order: index + (payload.existingVideosCount || 0),
+          duration_seconds: null,
+          file_size_mb: vid.size ? (vid.size / (1024 * 1024)) : null,
+        }));
+        const { error: vidError } = await supabase
+          .from('property_videos')
+          .insert(videoInserts);
+        if (vidError) throw vidError;
+      }
+
+      // Delete removed media
+      if (payload.deletedImageIds && payload.deletedImageIds.length > 0) {
+        await supabase.from('property_images').delete().in('id', payload.deletedImageIds);
+      }
+      if (payload.deletedVideoIds && payload.deletedVideoIds.length > 0) {
+        await supabase.from('property_videos').delete().in('id', payload.deletedVideoIds);
+      }
+      if (payload.deletedTourIds && payload.deletedTourIds.length > 0) {
+        await supabase.from('property_virtual_tours').delete().in('id', payload.deletedTourIds);
+      }
+
+      // 4. Update Amenities
+      await supabase.from('property_amenities').delete().eq('property_id', propertyId);
+      if (payload.amenity_ids && payload.amenity_ids.length > 0) {
+        const amenityInserts = payload.amenity_ids.map((amenity_id: string) => ({
+          property_id: propertyId,
+          amenity_id
+        }));
+        const { error: amenityError } = await supabase
+          .from('property_amenities')
+          .insert(amenityInserts);
+        if (amenityError) throw amenityError;
+      }
+
+      // 5. Update Dealer-Specific Details
+      if (payload.posted_by_role === 'dealer' || payload.posted_by_role === 'builder') {
+        // Project Details
+        await supabase.from('project_details').delete().eq('property_id', propertyId);
+        if (payload.project_details) {
+          const { error: projError } = await supabase
+            .from('project_details')
+            .insert({
+              property_id: propertyId,
+              project_name: payload.project_details.project_name,
+              builder_name: payload.project_details.builder_name,
+              launch_year: payload.project_details.launch_year,
+              possession_date: payload.project_details.possession_date,
+              total_units: payload.project_details.total_units,
+              project_area: payload.project_details.project_area,
+              rera_number: payload.project_details.rera_number,
+              marketing_tagline: payload.project_details.marketing_tagline,
+              description: payload.project_details.description
+            });
+          if (projError) throw projError;
+        }
+
+        // Location Advantages
+        await supabase.from('location_advantages').delete().eq('property_id', propertyId);
+        if (payload.location_advantages && payload.location_advantages.length > 0) {
+          const getAdvantageType = (name: string) => {
+            const n = name.toLowerCase();
+            if (n.includes('school') || n.includes('college') || n.includes('university') || n.includes('education')) return 'school';
+            if (n.includes('hospital') || n.includes('clinic') || n.includes('medical')) return 'hospital';
+            if (n.includes('metro') || n.includes('station') || n.includes('railway') || n.includes('train')) return 'metro';
+            if (n.includes('airport') || n.includes('flight')) return 'airport';
+            if (n.includes('mall') || n.includes('shopping') || n.includes('market') || n.includes('supermarket')) return 'mall';
+            if (n.includes('it park') || n.includes('tech park') || n.includes('sez') || n.includes('business')) return 'it_park';
+            if (n.includes('park') || n.includes('garden') || n.includes('playground')) return 'park';
+            if (n.includes('highway') || n.includes('expressway') || n.includes('road')) return 'highway';
+            if (n.includes('bus stop') || n.includes('transport') || n.includes('bus')) return 'transport';
+            return 'transport';
+          };
+
+          const { error: advError } = await supabase.from('location_advantages').insert(
+              payload.location_advantages.map((a: any) => ({
+                  property_id: propertyId,
+                  name: a.name,
+                  distance: a.distance,
+                  type: getAdvantageType(a.name)
+              }))
+          );
+          if (advError) throw advError;
+        }
+      }
+
+      // Property Highlights
+      await supabase.from('property_highlights').delete().eq('property_id', propertyId);
+      if (payload.highlights && payload.highlights.length > 0) {
+        const highlightInserts = payload.highlights.map((hl: any) => ({
+          property_id: propertyId,
+          title: hl.title,
+          value: hl.value
+        }));
+        const { error: hlError } = await supabase
+          .from('property_highlights')
+          .insert(highlightInserts);
+        if (hlError) throw hlError;
+      }
+
+      return { data: updatedProp, error: null };
+    } catch (error: any) {
+      console.error("Property update failed.", error);
       return { data: null, error };
     }
   },

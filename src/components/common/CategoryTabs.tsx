@@ -23,7 +23,7 @@ export function CategoryTabs({ value, onChange }: CategoryTabsProps) {
           onClick={() => onChange(cat)}
           className={`px-5 py-2 rounded-full text-sm font-bold cursor-pointer transition-all duration-200 drop-shadow-sm ${
             value === cat
-              ? "bg-[#FF3F6C] text-white shadow-md"
+              ? "bg-pink-600 text-white shadow-md"
               : "text-white bg-transparent hover:bg-white/20"
           }`}
         >

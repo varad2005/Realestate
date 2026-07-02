@@ -35,22 +35,22 @@ export function TenantsPage() {
     <PageWrapper>
       <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
         <div>
-          <h1 className="text-4xl md:text-5xl font-bold font-['Poppins'] text-[#1A1A1A] leading-tight mb-4">
-            Find Your Perfect <span className="text-[#FF3F6C]">Rental</span>
+          <h1 className="text-4xl md:text-5xl font-bold font-['Poppins'] text-gray-900 leading-tight mb-4">
+            Find Your Perfect <span className="text-pink-600">Rental</span>
           </h1>
-          <p className="text-gray-600 text-lg max-w-xl">
+          <p className="text-gray-500 text-lg max-w-xl">
             Thousands of zero-brokerage, verified homes. Say goodbye to hefty deposits and hidden fees.
           </p>
         </div>
         <div className="flex gap-4">
-          <div className="bg-emerald-50 text-emerald-600 px-4 py-3 rounded-2xl flex items-center gap-3">
+          <div className="bg-emerald-500/10 text-emerald-500 px-4 py-3 rounded-2xl flex items-center gap-3">
             <Percent size={24} />
             <div>
               <p className="font-bold">Zero Brokerage</p>
               <p className="text-xs">On selected homes</p>
             </div>
           </div>
-          <div className="bg-blue-50 text-blue-600 px-4 py-3 rounded-2xl flex items-center gap-3">
+          <div className="bg-indigo-600/10 text-indigo-600 px-4 py-3 rounded-2xl flex items-center gap-3">
             <ShieldCheck size={24} />
             <div>
               <p className="font-bold">100% Verified</p>
@@ -67,7 +67,7 @@ export function TenantsPage() {
               key={b}
               onClick={() => setBudget(b)}
               className={`px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-colors border ${
-                budget === b ? "bg-[#FF3F6C] text-white border-[#FF3F6C]" : "bg-white text-gray-700 border-gray-200 hover:border-[#FF3F6C]"
+                budget === b ? "bg-pink-600 text-white border-pink-600" : "bg-white text-gray-900 border-gray-200 hover:border-pink-600"
               }`}
             >
                {b}
@@ -99,10 +99,10 @@ export function TenantsPage() {
           ].map((tip, i) => (
             <div key={i} className="flex flex-col gap-4">
               <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                <tip.icon className="text-[#FF3F6C]" />
+                <tip.icon className="text-pink-600" />
               </div>
               <h3 className="font-bold text-lg">{tip.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{tip.desc}</p>
+              <p className="text-gray-500 text-sm leading-relaxed">{tip.desc}</p>
             </div>
           ))}
         </div>

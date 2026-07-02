@@ -35,35 +35,35 @@ export function AdminReportsPage() {
           <h1 className="text-3xl font-bold font-['Poppins'] text-gray-900">Reports & Analytics</h1>
           <p className="text-gray-500 mt-1">Detailed breakdown of platform performance.</p>
         </div>
-        <button className="flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition-colors">
+        <button className="flex items-center gap-2 bg-white border border-gray-200 text-gray-900 px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition-colors">
           <Download size={18} />
           Export CSV
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
           <div className="text-sm font-medium text-gray-500 mb-1">Total Users</div>
           <div className="text-3xl font-bold text-gray-900">{stats.totalUsers}</div>
         </div>
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
           <div className="text-sm font-medium text-gray-500 mb-1">Total Properties</div>
           <div className="text-3xl font-bold text-gray-900">{stats.totalProperties}</div>
         </div>
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
           <div className="text-sm font-medium text-gray-500 mb-1">Approval Rate</div>
           <div className="text-3xl font-bold text-gray-900">
             {stats.totalProperties ? Math.round((stats.approvedProperties / stats.totalProperties) * 100) : 0}%
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
           <div className="text-sm font-medium text-gray-500 mb-1">Pending Review</div>
           <div className="text-3xl font-bold text-gray-900">{stats.pendingProperties}</div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col min-h-[400px]">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex flex-col min-h-[400px]">
           <h3 className="font-bold text-gray-900 font-['Poppins'] mb-6">Property Submission Trends (Last 7 Days)</h3>
           <div className="flex-1">
             <ResponsiveContainer width="100%" height="100%">
@@ -81,7 +81,7 @@ export function AdminReportsPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col min-h-[400px]">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex flex-col min-h-[400px]">
           <h3 className="font-bold text-gray-900 font-['Poppins'] mb-6">Properties by City (Top 5)</h3>
           <div className="flex-1">
             <ResponsiveContainer width="100%" height="100%">

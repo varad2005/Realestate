@@ -16,43 +16,43 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
       <h1 className="text-3xl font-bold font-['Poppins']">Overview</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center">
-            <Users className="text-blue-500" size={24} />
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex items-center gap-4">
+          <div className="w-14 h-14 bg-indigo-600/10 rounded-full flex items-center justify-center">
+            <Users className="text-indigo-600" size={24} />
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">Total Users</p>
+            <p className="text-sm font-bold text-gray-500 uppercase tracking-wider">Total Users</p>
             <p className="text-3xl font-bold">{stats.totalUsers}</p>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex items-center gap-4">
           <div className="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center">
             <Home className="text-gray-500" size={24} />
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">Total Properties</p>
+            <p className="text-sm font-bold text-gray-500 uppercase tracking-wider">Total Properties</p>
             <p className="text-3xl font-bold">{stats.totalProperties}</p>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center">
-            <CheckCircle className="text-green-500" size={24} />
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex items-center gap-4">
+          <div className="w-14 h-14 bg-emerald-500/10 rounded-full flex items-center justify-center">
+            <CheckCircle className="text-emerald-500" size={24} />
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">Approved</p>
-            <p className="text-3xl font-bold text-green-500">{stats.approvedProperties}</p>
+            <p className="text-sm font-bold text-gray-500 uppercase tracking-wider">Approved</p>
+            <p className="text-3xl font-bold text-emerald-500">{stats.approvedProperties}</p>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="w-14 h-14 bg-orange-50 rounded-full flex items-center justify-center">
-            <ShieldAlert className="text-orange-500" size={24} />
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex items-center gap-4">
+          <div className="w-14 h-14 bg-yellow-500/10 rounded-full flex items-center justify-center">
+            <ShieldAlert className="text-yellow-500" size={24} />
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">Pending</p>
-            <p className="text-3xl font-bold text-orange-500">{stats.pendingProperties}</p>
+            <p className="text-sm font-bold text-gray-500 uppercase tracking-wider">Pending</p>
+            <p className="text-3xl font-bold text-yellow-500">{stats.pendingProperties}</p>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
           <Clock className="text-gray-500" size={20} />
           Recent Activity
         </h2>
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
           {stats.recentProperties.length === 0 ? (
             <div className="p-6 text-center text-gray-500">No recent properties</div>
           ) : (
@@ -76,9 +76,9 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
                     </p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                    prop.status === 'approved' ? 'bg-green-100 text-green-700' : 
-                    prop.status === 'rejected' ? 'bg-red-100 text-red-700' : 
-                    'bg-orange-100 text-orange-700'
+                    prop.status === 'approved' ? 'bg-emerald-500/20 text-emerald-500' : 
+                    prop.status === 'rejected' ? 'bg-red-500/20 text-red-500' : 
+                    'bg-yellow-500/20 text-yellow-500'
                   }`}>
                     {prop.status || 'pending'}
                   </span>

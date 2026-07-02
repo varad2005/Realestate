@@ -81,11 +81,11 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
-        <div className="flex items-center justify-between p-6 border-b border-gray-100 sticky top-0 bg-white z-10">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
           <h2 className="text-xl font-bold font-['Poppins']">
             {addon ? 'Edit Add-on Service' : 'Create New Add-on'}
           </h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+          <button onClick={onClose} className="p-2 hover:bg-gray-50 rounded-full transition-colors">
             <X size={20} className="text-gray-500" />
           </button>
         </div>
@@ -94,7 +94,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
           <div className="grid grid-cols-2 gap-6">
             <div className="col-span-2 md:col-span-1 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Service Name *</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Service Name *</label>
                 <input
                   type="text"
                   required
@@ -106,7 +106,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Slug *</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Slug *</label>
                 <input
                   type="text"
                   required
@@ -118,7 +118,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Category *</label>
                 <select
                   required
                   value={formData.category}
@@ -134,7 +134,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Short Description *</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Short Description *</label>
                 <textarea
                   required
                   rows={2}
@@ -149,7 +149,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
             <div className="col-span-2 md:col-span-1 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Base Price (₹) *</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Base Price (₹) *</label>
                   <input
                     type="number"
                     required
@@ -160,7 +160,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Tax (%) *</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Tax (%) *</label>
                   <input
                     type="number"
                     required
@@ -175,7 +175,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Duration (Days)</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Duration (Days)</label>
                   <input
                     type="number"
                     min="1"
@@ -186,7 +186,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Display Order</label>
                   <input
                     type="number"
                     value={formData.display_order}
@@ -197,13 +197,13 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Image Preview (Optional)</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Image Preview (Optional)</label>
                 <div className="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center hover:bg-gray-50 transition-colors">
                   {formData.image_url ? (
                     <div className="relative group rounded-lg overflow-hidden h-28">
                       <img src={formData.image_url} alt="Preview" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center">
-                        <label className="cursor-pointer text-white font-medium bg-[#FF3F6C] px-4 py-2 rounded-lg text-sm">
+                        <label className="cursor-pointer text-white font-medium bg-pink-600 px-4 py-2 rounded-lg text-sm">
                           Change
                           <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                         </label>
@@ -211,7 +211,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
                     </div>
                   ) : (
                     <label className="cursor-pointer flex flex-col items-center justify-center h-28 text-gray-500">
-                      <Upload size={24} className="mb-2 text-gray-400" />
+                      <Upload size={24} className="mb-2 text-gray-500" />
                       <span className="text-sm">Click to upload image</span>
                       <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                     </label>
@@ -221,7 +221,7 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
             </div>
 
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Detailed Description (Optional)</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Detailed Description (Optional)</label>
               <textarea
                 rows={3}
                 value={formData.detailed_description || ''}
@@ -232,16 +232,16 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-6 border-t border-gray-100">
+          <div className="flex items-center justify-between pt-6 border-t border-gray-200">
             <div className="flex gap-6">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.is_active}
                   onChange={e => setFormData({ ...formData, is_active: e.target.checked })}
-                  className="w-4 h-4 text-[#FF3F6C] rounded border-gray-300 focus:ring-[#FF3F6C]"
+                  className="w-4 h-4 text-pink-600 rounded border-gray-200 focus:ring-[#FF3F6C]"
                 />
-                <span className="text-sm font-medium text-gray-700">Active</span>
+                <span className="text-sm font-medium text-gray-900">Active</span>
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer">
@@ -249,9 +249,9 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
                   type="checkbox"
                   checked={formData.is_featured}
                   onChange={e => setFormData({ ...formData, is_featured: e.target.checked })}
-                  className="w-4 h-4 text-[#FF3F6C] rounded border-gray-300 focus:ring-[#FF3F6C]"
+                  className="w-4 h-4 text-pink-600 rounded border-gray-200 focus:ring-[#FF3F6C]"
                 />
-                <span className="text-sm font-medium text-gray-700">Featured (Highlight)</span>
+                <span className="text-sm font-medium text-gray-900">Featured (Highlight)</span>
               </label>
             </div>
 
@@ -259,14 +259,14 @@ export function AddonFormModal({ addon, onClose, onSave }: AddonFormModalProps) 
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-2 rounded-xl border border-gray-200 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                className="px-6 py-2 rounded-xl border border-gray-200 text-gray-900 font-medium hover:bg-gray-50 transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading || uploading}
-                className="px-6 py-2 rounded-xl bg-[#FF3F6C] text-white font-medium hover:bg-[#e62e5c] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-6 py-2 rounded-xl bg-pink-600 text-white font-medium hover:bg-pink-600/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {loading || uploading ? <Loader2 size={18} className="animate-spin" /> : null}
                 {loading ? 'Saving...' : uploading ? 'Uploading...' : 'Save Add-on'}

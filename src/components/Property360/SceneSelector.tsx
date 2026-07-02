@@ -11,7 +11,7 @@ export function SceneSelector({ scenes, activeSceneId, onSceneChange }: SceneSel
 
   return (
     <div className="mt-4">
-      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 px-1">
+      <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 px-1">
         Select a Room
       </p>
       <div className="flex gap-3 overflow-x-auto pb-2 hide-scrollbar snap-x snap-mandatory">
@@ -29,7 +29,7 @@ export function SceneSelector({ scenes, activeSceneId, onSceneChange }: SceneSel
               <div
                 className={`relative w-24 h-16 rounded-xl overflow-hidden border-2 transition-all shadow-lg ${
                   isActive
-                    ? 'border-violet-500 shadow-violet-500/30'
+                    ? 'border-accent shadow-violet-500/30'
                     : 'border-white/10 group-hover:border-white/30'
                 }`}
               >
@@ -41,15 +41,15 @@ export function SceneSelector({ scenes, activeSceneId, onSceneChange }: SceneSel
                     loading="lazy"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-violet-900 to-indigo-900 flex items-center justify-center">
+                  <div className="w-full h-full bg-gradient-to-br from-accent to-secondary flex items-center justify-center">
                     <span className="text-2xl">🌐</span>
                   </div>
                 )}
 
                 {/* Active overlay */}
                 {isActive && (
-                  <div className="absolute inset-0 bg-violet-500/20 flex items-center justify-center">
-                    <div className="w-3 h-3 rounded-full bg-violet-400 border-2 border-white shadow" />
+                  <div className="absolute inset-0 bg-purple-600/20 flex items-center justify-center">
+                    <div className="w-3 h-3 rounded-full bg-purple-600 border-2 border-white shadow" />
                   </div>
                 )}
               </div>
@@ -57,7 +57,7 @@ export function SceneSelector({ scenes, activeSceneId, onSceneChange }: SceneSel
               {/* Scene name */}
               <span
                 className={`text-[11px] font-semibold text-center max-w-[96px] leading-tight truncate ${
-                  isActive ? 'text-violet-300' : 'text-gray-400'
+                  isActive ? 'text-purple-600/60' : 'text-gray-500'
                 }`}
               >
                 {scene.title}

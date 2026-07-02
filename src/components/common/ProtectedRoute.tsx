@@ -11,8 +11,8 @@ export function ProtectedRoute({ children, role }: ProtectedRouteProps) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F5F5F6]">
-        <div className="w-10 h-10 border-4 border-[#FF3F6C]/20 border-t-[#FF3F6C] rounded-full animate-spin"></div>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="w-10 h-10 border-4 border-pink-600/20 border-t-[#FF3F6C] rounded-full animate-spin"></div>
       </div>
     );
   }

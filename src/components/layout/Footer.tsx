@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 export function Footer() {
   return (
-    <footer className="bg-[#0F0F1E] text-gray-400 mt-16">
+    <footer className="bg-footer text-gray-500 mt-16">
       <div className="max-w-[1440px] mx-auto px-10 py-12 grid grid-cols-4 gap-10">
         <div>
           <Link to="/" className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 bg-[#FF3F6C] rounded-xl flex items-center justify-center">
+            <div className="w-8 h-8 bg-pink-600 rounded-xl flex items-center justify-center">
               <Building size={16} className="text-white" />
             </div>
             <span className="text-lg font-bold font-['Poppins'] text-white">
@@ -52,15 +52,15 @@ export function Footer() {
           </div>
         ))}
       </div>
-      <div className="border-t border-gray-800">
+      <div className="border-t border-gray-300">
         <div className="max-w-[1440px] mx-auto px-10 py-6 flex items-center justify-between">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-gray-500">
             © 2026 Nestify. All rights reserved.
           </p>
-          <div className="flex items-center gap-4 text-xs text-gray-600">
-            <a href="#" className="hover:text-gray-400">Terms</a>
-            <a href="#" className="hover:text-gray-400">Privacy</a>
-            <a href="#" className="hover:text-gray-400">Cookies</a>
+          <div className="flex items-center gap-4 text-xs text-gray-500">
+            <a href="#" className="hover:text-gray-500">Terms</a>
+            <a href="#" className="hover:text-gray-500">Privacy</a>
+            <a href="#" className="hover:text-gray-500">Cookies</a>
           </div>
         </div>
       </div>

@@ -22,6 +22,7 @@ const InsightsPage = lazy(() => import('@/pages/InsightsPage').then(m => ({ defa
 const PropertyDetailPage = lazy(() => import('@/features/property').then(m => ({ default: m.PropertyDetailPage })));
 const NotFound = lazy(() => import('@/pages/NotFound').then(m => ({ default: m.NotFound })));
 const PostPropertyPage = lazy(() => import('@/features/post/PostPropertyPage').then(m => ({ default: m.PostPropertyPage })));
+const ExploreMapPage = lazy(() => import('@/pages/ExploreMapPage').then(m => ({ default: m.ExploreMapPage })));
 const LoginPage = lazy(() => import('@/features/auth').then(m => ({ default: m.LoginPage })));
 const ProfilePage = lazy(() => import('@/features/auth').then(m => ({ default: m.ProfilePage })));
 const MyListingsPage = lazy(() => import('@/pages/owner/MyListingsPage').then(m => ({ default: m.MyListingsPage })));
@@ -41,8 +42,8 @@ const AdminAddonOrdersPage = lazy(() => import('@/pages/admin/AdminAddonOrdersPa
 const AdminVirtualToursPage = lazy(() => import('@/pages/admin/AdminVirtualToursPage').then(m => ({ default: m.AdminVirtualToursPage })));
 
 const Fallback = () => (
-  <div className="min-h-screen flex items-center justify-center bg-[#F5F5F6]">
-    <div className="w-10 h-10 border-4 border-[#FF3F6C]/20 border-t-[#FF3F6C] rounded-full animate-spin"></div>
+  <div className="min-h-screen flex items-center justify-center bg-white">
+    <div className="w-10 h-10 border-4 border-pink-600/20 border-t-[#FF3F6C] rounded-full animate-spin"></div>
   </div>
 );
 
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path: 'buy/:city?',
         element: <Suspense fallback={<Fallback />}><BuyPage /></Suspense>,
+      },
+      {
+        path: 'explore-map',
+        element: <Suspense fallback={<Fallback />}><ExploreMapPage /></Suspense>,
       },
       {
         path: 'rent',

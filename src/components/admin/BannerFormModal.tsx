@@ -74,11 +74,11 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
-        <div className="flex items-center justify-between p-6 border-b border-gray-100 sticky top-0 bg-white z-10">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
           <h2 className="text-xl font-bold font-['Poppins']">
             {banner ? 'Edit Banner' : 'Create New Banner'}
           </h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+          <button onClick={onClose} className="p-2 hover:bg-gray-50 rounded-full transition-colors">
             <X size={20} className="text-gray-500" />
           </button>
         </div>
@@ -87,7 +87,7 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
           <div className="grid grid-cols-2 gap-6">
             <div className="col-span-2 md:col-span-1 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Title *</label>
                 <input
                   type="text"
                   required
@@ -99,7 +99,7 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Subtitle</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Subtitle</label>
                 <input
                   type="text"
                   value={formData.subtitle || ''}
@@ -110,7 +110,7 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Description</label>
                 <textarea
                   rows={3}
                   value={formData.description || ''}
@@ -122,7 +122,7 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Button Text</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Button Text</label>
                   <input
                     type="text"
                     value={formData.button_text || ''}
@@ -132,7 +132,7 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Button Link</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Button Link</label>
                   <input
                     type="text"
                     value={formData.button_link || ''}
@@ -146,13 +146,13 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
 
             <div className="col-span-2 md:col-span-1 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Desktop Image *</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Desktop Image *</label>
                 <div className="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center hover:bg-gray-50 transition-colors">
                   {formData.image_url ? (
                     <div className="relative group rounded-lg overflow-hidden h-32">
                       <img src={formData.image_url} alt="Preview" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center">
-                        <label className="cursor-pointer text-white font-medium bg-[#FF3F6C] px-4 py-2 rounded-lg text-sm">
+                        <label className="cursor-pointer text-white font-medium bg-pink-600 px-4 py-2 rounded-lg text-sm">
                           Change
                           <input type="file" className="hidden" accept="image/*" onChange={e => handleImageUpload(e, 'image_url')} />
                         </label>
@@ -160,7 +160,7 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
                     </div>
                   ) : (
                     <label className="cursor-pointer flex flex-col items-center justify-center h-32 text-gray-500">
-                      <Upload size={24} className="mb-2 text-gray-400" />
+                      <Upload size={24} className="mb-2 text-gray-500" />
                       <span className="text-sm">Click to upload image</span>
                       <input type="file" className="hidden" accept="image/*" onChange={e => handleImageUpload(e, 'image_url')} />
                     </label>
@@ -169,13 +169,13 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Mobile Image (Optional)</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Mobile Image (Optional)</label>
                 <div className="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center hover:bg-gray-50 transition-colors">
                   {formData.mobile_image_url ? (
                     <div className="relative group rounded-lg overflow-hidden h-32">
                       <img src={formData.mobile_image_url} alt="Mobile Preview" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center">
-                        <label className="cursor-pointer text-white font-medium bg-[#FF3F6C] px-4 py-2 rounded-lg text-sm">
+                        <label className="cursor-pointer text-white font-medium bg-pink-600 px-4 py-2 rounded-lg text-sm">
                           Change
                           <input type="file" className="hidden" accept="image/*" onChange={e => handleImageUpload(e, 'mobile_image_url')} />
                         </label>
@@ -183,7 +183,7 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
                     </div>
                   ) : (
                     <label className="cursor-pointer flex flex-col items-center justify-center h-32 text-gray-500">
-                      <Upload size={24} className="mb-2 text-gray-400" />
+                      <Upload size={24} className="mb-2 text-gray-500" />
                       <span className="text-sm">Click to upload mobile image</span>
                       <input type="file" className="hidden" accept="image/*" onChange={e => handleImageUpload(e, 'mobile_image_url')} />
                     </label>
@@ -193,7 +193,7 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Overlay Opacity (0-1)</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Overlay Opacity (0-1)</label>
                   <input
                     type="number"
                     step="0.1"
@@ -205,7 +205,7 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Alignment</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Alignment</label>
                   <select
                     value={formData.text_alignment}
                     onChange={e => setFormData({ ...formData, text_alignment: e.target.value as any })}
@@ -220,29 +220,29 @@ export function BannerFormModal({ banner, onClose, onSave }: BannerFormModalProp
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-6 border-t border-gray-100">
+          <div className="flex items-center justify-between pt-6 border-t border-gray-200">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
                 checked={formData.is_active}
                 onChange={e => setFormData({ ...formData, is_active: e.target.checked })}
-                className="w-4 h-4 text-[#FF3F6C] rounded border-gray-300 focus:ring-[#FF3F6C]"
+                className="w-4 h-4 text-pink-600 rounded border-gray-200 focus:ring-[#FF3F6C]"
               />
-              <span className="text-sm font-medium text-gray-700">Active (Visible on site)</span>
+              <span className="text-sm font-medium text-gray-900">Active (Visible on site)</span>
             </label>
 
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-2 rounded-xl border border-gray-200 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                className="px-6 py-2 rounded-xl border border-gray-200 text-gray-900 font-medium hover:bg-gray-50 transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading || uploading}
-                className="px-6 py-2 rounded-xl bg-[#FF3F6C] text-white font-medium hover:bg-[#e62e5c] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-6 py-2 rounded-xl bg-pink-600 text-white font-medium hover:bg-pink-600/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {loading || uploading ? <Loader2 size={18} className="animate-spin" /> : null}
                 {loading ? 'Saving...' : uploading ? 'Uploading...' : 'Save Banner'}

@@ -36,7 +36,7 @@ export function Dashboard() {
   if (error || !data) {
     return (
       <div className="p-8">
-        <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600">
+        <div className="p-4 bg-red-500/10 border border-destructive/40 rounded-xl text-red-500">
           {error || 'Failed to load data.'}
         </div>
       </div>
@@ -94,7 +94,7 @@ export function Dashboard() {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex justify-between items-center px-1">
             <h3 className="font-bold text-gray-900 font-['Poppins'] text-xl">Recent Properties</h3>
-            <button className="text-[#FF3F6C] text-sm font-semibold hover:underline">View All</button>
+            <button className="text-pink-600 text-sm font-semibold hover:underline">View All</button>
           </div>
           <PropertyTable 
             properties={recentProperties}

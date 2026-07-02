@@ -48,7 +48,7 @@ export function AdminAddonsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-[#FF3F6C]" />
+        <Loader2 className="w-8 h-8 animate-spin text-pink-600" />
       </div>
     );
   }
@@ -62,7 +62,7 @@ export function AdminAddonsPage() {
         </div>
         <button
           onClick={() => { setEditingAddon(undefined); setIsModalOpen(true); }}
-          className="bg-[#FF3F6C] text-white px-4 py-2.5 rounded-xl font-medium hover:bg-[#e62e5c] transition-colors flex items-center gap-2 shadow-md shadow-[#FF3F6C]/20"
+          className="bg-pink-600 text-white px-4 py-2.5 rounded-xl font-medium hover:bg-pink-600/90 transition-colors flex items-center gap-2 shadow-md shadow-[#FF3F6C]/20"
         >
           <Plus size={18} /> Create Add-on
         </button>
@@ -73,18 +73,18 @@ export function AdminAddonsPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600">Service</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600">Category</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600">Price</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600 text-center">Status</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600 text-right">Actions</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500">Service</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500">Category</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500">Price</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500 text-center">Status</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {addons.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
-                    <Package className="w-12 h-12 mx-auto text-gray-300 mb-3" />
+                    <Package className="w-12 h-12 mx-auto text-gray-500/50 mb-3" />
                     <p className="text-base font-medium text-gray-900">No Add-on Services found</p>
                     <p className="text-sm mt-1">Click "Create Add-on" to add your first service.</p>
                   </td>
@@ -95,25 +95,25 @@ export function AdminAddonsPage() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
                         {addon.image_url ? (
-                          <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 border border-gray-200 shrink-0">
+                          <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-50 border border-gray-200 shrink-0">
                             <img src={addon.image_url} alt={addon.name} className="w-full h-full object-cover" />
                           </div>
                         ) : (
-                          <div className="w-12 h-12 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center shrink-0">
-                            <Package className="w-6 h-6 text-gray-400" />
+                          <div className="w-12 h-12 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center shrink-0">
+                            <Package className="w-6 h-6 text-gray-500" />
                           </div>
                         )}
                         <div>
                           <p className="font-semibold text-gray-900 flex items-center gap-2">
                             {addon.name}
-                            {addon.is_featured && <Star size={14} className="fill-[#FF3F6C] text-[#FF3F6C]" title="Featured" />}
+                            {addon.is_featured && <Star size={14} className="fill-pink-600 text-pink-600" />}
                           </p>
                           <p className="text-xs text-gray-500 mt-0.5 truncate max-w-xs">{addon.short_description}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-indigo-600/10 text-indigo-600 border border-secondary/40">
                         {addon.category}
                       </span>
                     </td>
@@ -126,8 +126,8 @@ export function AdminAddonsPage() {
                         onClick={() => handleToggleActive(addon)}
                         className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border transition-colors ${
                           addon.is_active 
-                            ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' 
-                            : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
+                            ? 'bg-emerald-500/10 text-emerald-500 border-success/40 hover:bg-emerald-500/20' 
+                            : 'bg-gray-50 text-gray-500 border-gray-200 hover:bg-gray-50'
                         }`}
                       >
                         {addon.is_active ? 'Active' : 'Disabled'}
@@ -137,14 +137,14 @@ export function AdminAddonsPage() {
                       <div className="flex items-center justify-end gap-2">
                         <button 
                           onClick={() => { setEditingAddon(addon); setIsModalOpen(true); }}
-                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-600/10 rounded-lg transition-colors"
                           title="Edit"
                         >
                           <Edit2 size={16} />
                         </button>
                         <button 
                           onClick={() => handleDelete(addon.id)}
-                          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
                           title="Delete"
                         >
                           <Trash2 size={16} />

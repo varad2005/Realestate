@@ -27,7 +27,7 @@ export function OwnersPage() {
           </p>
           <button 
             onClick={() => navigate('/post-property')}
-            className="bg-white text-[#FF3F6C] px-10 py-4 rounded-2xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all"
+            className="bg-white text-pink-600 px-10 py-4 rounded-2xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all"
           >
             Post Property Now
           </button>
@@ -36,8 +36,8 @@ export function OwnersPage() {
 
       <div className="mb-20">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold font-['Poppins'] text-[#1A1A1A] mb-4">How it Works</h2>
-          <p className="text-gray-600">Three simple steps to close the deal</p>
+          <h2 className="text-3xl font-bold font-['Poppins'] text-gray-900 mb-4">How it Works</h2>
+          <p className="text-gray-500">Three simple steps to close the deal</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {OWNER_STEPS.map((step) => (
@@ -46,7 +46,7 @@ export function OwnersPage() {
         </div>
       </div>
 
-      <div className="bg-[#F5F5F6] rounded-[2.5rem] p-10 lg:p-20 border border-gray-100">
+      <div className="bg-white rounded-[2.5rem] p-10 lg:p-20 border border-gray-200">
         <SectionHeader title="Why choose Nestify?" sub="Benefits of listing directly with us" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
           {[
@@ -55,12 +55,12 @@ export function OwnersPage() {
             { icon: Star, title: "Premium Tools", desc: "Access pricing insights, high-quality photo guidelines, and more." }
           ].map((benefit, i) => (
             <div key={i} className="flex gap-5 items-start">
-              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm shrink-0 text-[#6C63FF]">
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm shrink-0 text-indigo-600">
                 <benefit.icon size={24} />
               </div>
               <div>
-                <h3 className="text-lg font-bold font-['Poppins'] text-[#1A1A1A] mb-2">{benefit.title}</h3>
-                <p className="text-sm text-[#6B7280] leading-relaxed">{benefit.desc}</p>
+                <h3 className="text-lg font-bold font-['Poppins'] text-gray-900 mb-2">{benefit.title}</h3>
+                <p className="text-sm text-gray-500-foreground leading-relaxed">{benefit.desc}</p>
               </div>
             </div>
           ))}
@@ -74,13 +74,13 @@ export function OwnersPage() {
             { quote: "I rented my apartment in just 3 days! The quality of leads was fantastic and I saved a month's rent on brokerage.", author: "Amit S.", city: "Bengaluru" },
             { quote: "Selling a house seemed daunting, but the platform made it incredibly easy. Very intuitive interface.", author: "Neha K.", city: "Pune" }
           ].map((t, i) => (
-            <div key={i} className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-              <div className="flex gap-1 text-[#FF3F6C] mb-4">
+            <div key={i} className="bg-white p-8 rounded-3xl shadow-sm border border-gray-200">
+              <div className="flex gap-1 text-pink-600 mb-4">
                 {[...Array(5)].map((_, j) => <Star key={j} size={16} className="fill-[#FF3F6C]" />)}
               </div>
-              <p className="text-gray-700 italic mb-6 leading-relaxed">"{t.quote}"</p>
+              <p className="text-gray-900 italic mb-6 leading-relaxed">"{t.quote}"</p>
               <div>
-                <p className="font-bold text-[#1A1A1A]">{t.author}</p>
+                <p className="font-bold text-gray-900">{t.author}</p>
                 <p className="text-xs text-gray-500">{t.city}</p>
               </div>
             </div>

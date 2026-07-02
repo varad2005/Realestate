@@ -26,7 +26,7 @@ export function ProfileDropdown() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const getLinkClass = "block px-4 py-2 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#FF3F6C] transition-colors rounded-lg font-medium";
+  const getLinkClass = "block px-4 py-2 text-sm text-gray-900 hover:bg-gray-50 hover:text-pink-600 transition-colors rounded-lg font-medium";
 
   if (!isAuthenticated || !user) {
     return (
@@ -58,11 +58,11 @@ export function ProfileDropdown() {
       </button>
 
       <div 
-        className={`absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 p-2 transition-all duration-200 transform ${
+        className={`absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 p-2 transition-all duration-200 transform ${
           isOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 translate-y-2 invisible'
         }`}
       >
-        <div className="px-4 py-3 border-b border-gray-100 mb-2">
+        <div className="px-4 py-3 border-b border-gray-200 mb-2">
           <p className="text-sm font-bold text-gray-900 truncate">{user.name}</p>
           <p className="text-xs text-gray-500 truncate mt-0.5">{user.email}</p>
         </div>
@@ -77,10 +77,10 @@ export function ProfileDropdown() {
           Saved Listings
         </NavLink>
         
-        <div className="my-1 border-t border-gray-100"></div>
+        <div className="my-1 border-t border-gray-200"></div>
         <button 
           onClick={handleLogout} 
-          className="w-full text-left block px-4 py-2 text-sm text-[#FF3F6C] hover:bg-red-50 transition-colors rounded-lg font-bold"
+          className="w-full text-left block px-4 py-2 text-sm text-pink-600 hover:bg-red-500/10 transition-colors rounded-lg font-bold"
         >
           Logout
         </button>

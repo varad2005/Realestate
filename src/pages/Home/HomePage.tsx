@@ -111,7 +111,7 @@ function Hero({ onSearch }: { onSearch: (query: string, category: string) => voi
 
   return (
     <section 
-      className="relative h-[90vh] flex items-center justify-center pt-24 overflow-hidden group"
+      className="relative h-screen flex items-center justify-center pt-24 overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={handleTouchStart}
@@ -137,11 +137,11 @@ function Hero({ onSearch }: { onSearch: (query: string, category: string) => voi
 
       <div className={`relative z-10 max-w-[1440px] mx-auto px-10 w-full flex flex-col items-${activeBanner.text_alignment === 'left' ? 'start' : activeBanner.text_alignment === 'right' ? 'end' : 'center'} text-${activeBanner.text_alignment || 'center'}`}>
         {activeBanner.badge_text ? (
-          <p className="text-[#FF3F6C] text-sm font-bold uppercase tracking-widest mb-3 drop-shadow-md">
+          <p className="text-pink-600 text-sm font-bold uppercase tracking-widest mb-3 drop-shadow-md">
             {activeBanner.badge_text}
           </p>
         ) : activeBanner.subtitle ? (
-          <p className="text-[#FF3F6C] text-sm font-bold uppercase tracking-widest mb-3 drop-shadow-md">
+          <p className="text-pink-600 text-sm font-bold uppercase tracking-widest mb-3 drop-shadow-md">
             {activeBanner.subtitle}
           </p>
         ) : null}
@@ -165,7 +165,7 @@ function Hero({ onSearch }: { onSearch: (query: string, category: string) => voi
         {activeBanner.button_text && activeBanner.button_link && (
           <a
             href={activeBanner.button_link}
-            className="mb-8 bg-[#FF3F6C] text-white px-8 py-3 rounded-full font-bold hover:bg-[#e62e5c] transition-colors shadow-lg"
+            className="mb-8 bg-pink-600 text-white px-8 py-3 rounded-full font-bold hover:bg-pink-600/90 transition-colors shadow-lg"
           >
             {activeBanner.button_text}
           </a>
@@ -176,19 +176,19 @@ function Hero({ onSearch }: { onSearch: (query: string, category: string) => voi
         {/* Search box */}
         <div className="bg-white rounded-full p-2 flex items-center gap-2 w-full max-w-2xl shadow-lg border-0">
           <div className="flex-1 flex items-center gap-3 px-5">
-            <Search size={18} className="text-gray-400 shrink-0" />
+            <Search size={18} className="text-gray-500 shrink-0" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit()}
               placeholder="Search by locality, city, or project"
-              className="flex-1 text-base outline-none py-2 text-[#1A1A1A] placeholder:text-gray-400 bg-transparent border-none"
+              className="flex-1 text-base outline-none py-2 text-gray-900 placeholder:text-gray-500 bg-transparent border-none"
             />
           </div>
           <button
             onClick={handleSearchSubmit}
-            className="bg-[#FF3F6C] text-white w-12 h-12 rounded-full font-bold text-sm hover:bg-[#e62e5c] transition-colors flex items-center justify-center shadow-md shrink-0"
+            className="bg-pink-600 text-white w-12 h-12 rounded-full font-bold text-sm hover:bg-pink-600/90 transition-colors flex items-center justify-center shadow-md shrink-0"
           >
             <Search size={18} />
           </button>
@@ -236,7 +236,7 @@ function Hero({ onSearch }: { onSearch: (query: string, category: string) => voi
               key={idx}
               onClick={() => setCurrentIndex(idx)}
               className={`h-2 rounded-full transition-all ${
-                idx === currentIndex ? 'w-8 bg-[#FF3F6C]' : 'w-2 bg-white/50 hover:bg-white'
+                idx === currentIndex ? 'w-8 bg-pink-600' : 'w-2 bg-white/50 hover:bg-white'
               }`}
             />
           ))}
@@ -295,33 +295,33 @@ function FeaturedCard({
       onClick={onClick}
       className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all cursor-pointer group flex"
     >
-      <div className="relative w-52 shrink-0 overflow-hidden bg-gray-100">
+      <div className="relative w-52 shrink-0 overflow-hidden bg-gray-50">
         <img
           src={getPropertyImage(proj.img)}
           alt={proj.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <span className="absolute top-3 left-3 text-[10px] font-bold bg-[#6C63FF] text-white px-2 py-0.5 rounded-sm uppercase tracking-wider">
+        <span className="absolute top-3 left-3 text-[10px] font-bold bg-indigo-600 text-white px-2 py-0.5 rounded-sm uppercase tracking-wider">
           {proj.tag}
         </span>
       </div>
       <div className="p-5 flex flex-col justify-between flex-1">
         <div>
-          <p className="text-base font-bold font-['Poppins'] text-[#1A1A1A] leading-snug">
+          <p className="text-base font-bold font-['Poppins'] text-gray-900 leading-snug">
             {proj.name}
           </p>
-          <p className="text-xs font-bold text-[#6C63FF] mt-0.5">{proj.builder}</p>
-          <div className="flex items-center gap-1 mt-2 text-[#6B7280] text-xs">
+          <p className="text-xs font-bold text-indigo-600 mt-0.5">{proj.builder}</p>
+          <div className="flex items-center gap-1 mt-2 text-gray-500-foreground text-xs">
             <MapPin size={11} />
             <span>{proj.location}</span>
           </div>
         </div>
         <div>
-          <p className="text-xs text-[#6B7280] mt-4">{proj.units}</p>
-          <p className="text-lg font-extrabold text-[#FF3F6C] mt-0.5 font-['Poppins']">
+          <p className="text-xs text-gray-500-foreground mt-4">{proj.units}</p>
+          <p className="text-lg font-extrabold text-pink-600 mt-0.5 font-['Poppins']">
             {proj.price}
           </p>
-          <button className="mt-3 text-xs font-bold text-[#FF3F6C] border border-[#FF3F6C]/40 px-3 py-1.5 rounded-lg hover:bg-[#FF3F6C] hover:text-white hover:border-[#FF3F6C] transition-all">
+          <button className="mt-3 text-xs font-bold text-pink-600 border border-pink-600/40 px-3 py-1.5 rounded-lg hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all">
             View Project →
           </button>
         </div>
@@ -334,14 +334,14 @@ function FeaturedCard({
 
 export function Footer({ onLogoClick }: { onLogoClick: () => void }) {
   return (
-    <footer className="bg-[#0F0F1E] text-gray-400 mt-16">
+    <footer className="bg-footer text-gray-500 mt-16">
       <div className="max-w-[1440px] mx-auto px-10 py-12 grid grid-cols-4 gap-10">
         <div>
           <button
             onClick={onLogoClick}
             className="flex items-center gap-2 mb-4"
           >
-            <div className="w-8 h-8 bg-[#FF3F6C] rounded-xl flex items-center justify-center">
+            <div className="w-8 h-8 bg-pink-600 rounded-xl flex items-center justify-center">
               <Building size={16} className="text-white" />
             </div>
             <span className="text-lg font-bold font-['Poppins'] text-white">
@@ -387,7 +387,7 @@ export function Footer({ onLogoClick }: { onLogoClick: () => void }) {
         ))}
       </div>
       <div className="border-t border-white/5 py-4">
-        <p className="text-center text-xs text-gray-600">
+        <p className="text-center text-xs text-gray-500">
           © 2025 Nestify Technologies Pvt. Ltd. All rights reserved.
         </p>
       </div>
@@ -411,7 +411,7 @@ function HomePage({
   onSearch: (query: string, category: string) => void;
 }) {
   return (
-    <div className="bg-[#F5F5F6] min-h-screen">
+    <div className="bg-white min-h-screen">
       <Hero onSearch={onSearch} />
 
       <FeaturedProjects />

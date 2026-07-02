@@ -18,7 +18,7 @@ export function MainLayout() {
     );
 
   return (
-    <div className="min-h-screen bg-[#F5F5F6] text-[#1A1A1A] font-sans selection:bg-[#FF3F6C]/20 selection:text-[#FF3F6C] flex flex-col">
+    <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-pink-600/20 selection:text-pink-600 flex flex-col">
       <Navbar wishlistCount={wishlist.length} />
       <div className="relative flex-1">
         <Outlet context={{ wishlist, toggleWishlist }} />

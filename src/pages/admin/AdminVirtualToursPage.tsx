@@ -100,7 +100,7 @@ export function AdminVirtualToursPage() {
         </div>
         <button
           onClick={loadTours}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl text-sm font-medium transition-colors"
+          className="flex items-center gap-2 px-4 py-2 border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-gray-50 rounded-xl text-sm font-medium transition-colors"
         >
           <RefreshCw size={15} />
           Refresh
@@ -109,9 +109,9 @@ export function AdminVirtualToursPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
-          <div className="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center">
-            <Globe size={22} className="text-violet-600" />
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 flex items-center gap-4">
+          <div className="w-12 h-12 bg-purple-600/20 rounded-xl flex items-center justify-center">
+            <Globe size={22} className="text-purple-600" />
           </div>
           <div>
             <p className="text-2xl font-extrabold text-gray-900">{totalProperties}</p>
@@ -119,9 +119,9 @@ export function AdminVirtualToursPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-            <BarChart3 size={22} className="text-blue-600" />
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 flex items-center gap-4">
+          <div className="w-12 h-12 bg-indigo-600/20 rounded-xl flex items-center justify-center">
+            <BarChart3 size={22} className="text-indigo-600" />
           </div>
           <div>
             <p className="text-2xl font-extrabold text-gray-900">{totalScenes}</p>
@@ -129,9 +129,9 @@ export function AdminVirtualToursPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
-          <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-            <Globe size={22} className="text-emerald-600" />
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 flex items-center gap-4">
+          <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center">
+            <Globe size={22} className="text-emerald-500" />
           </div>
           <div>
             <p className="text-2xl font-extrabold text-gray-900">
@@ -143,39 +143,39 @@ export function AdminVirtualToursPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-2">
-          <Globe size={18} className="text-violet-500" />
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-300/10 flex items-center gap-2">
+          <Globe size={18} className="text-purple-600" />
           <h2 className="text-base font-bold text-gray-900">All Properties with Virtual Tours</h2>
-          <span className="ml-auto text-xs text-gray-400 font-medium">
+          <span className="ml-auto text-xs text-gray-500 font-medium">
             {totalProperties} properties
           </span>
         </div>
 
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
-            <Loader2 size={32} className="animate-spin text-violet-500" />
+            <Loader2 size={32} className="animate-spin text-purple-600" />
             <p className="text-sm text-gray-500">Loading virtual tours…</p>
           </div>
         ) : error ? (
           <div className="flex flex-col items-center justify-center py-16 gap-3">
-            <AlertCircle size={32} className="text-red-400" />
+            <AlertCircle size={32} className="text-red-500/80" />
             <p className="text-sm text-red-500 font-medium">{error}</p>
-            <button onClick={loadTours} className="text-xs text-violet-600 font-bold hover:underline">
+            <button onClick={loadTours} className="text-xs text-purple-600 font-bold hover:underline">
               Retry
             </button>
           </div>
         ) : tourGroups.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 gap-3 text-gray-400">
-            <Globe size={40} className="text-gray-200" />
+          <div className="flex flex-col items-center justify-center py-20 gap-3 text-gray-500">
+            <Globe size={40} className="text-gray-500/50" />
             <p className="text-sm font-medium">No virtual tours found.</p>
-            <p className="text-xs text-gray-400">Upload 360° panoramas when posting properties.</p>
+            <p className="text-xs text-gray-500">Upload 360° panoramas when posting properties.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-50 bg-gray-50/50">
+                <tr className="border-b border-gray-300/10 bg-gray-50/50">
                   <th className="text-left px-6 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Property</th>
                   <th className="text-center px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Scenes</th>
                   <th className="text-center px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
@@ -188,27 +188,27 @@ export function AdminVirtualToursPage() {
                   <tr key={group.propertyId} className="hover:bg-gray-50/50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center shrink-0">
-                          <Globe size={15} className="text-violet-600" />
+                        <div className="w-8 h-8 bg-purple-600/20 rounded-lg flex items-center justify-center shrink-0">
+                          <Globe size={15} className="text-purple-600" />
                         </div>
                         <div className="min-w-0">
                           <p className="font-semibold text-gray-900 truncate max-w-[200px]">
                             {group.propertyTitle}
                           </p>
-                          <p className="text-xs text-gray-400 truncate">{group.propertyCity}</p>
+                          <p className="text-xs text-gray-500 truncate">{group.propertyCity}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-4 text-center">
-                      <span className="inline-flex items-center justify-center w-8 h-8 bg-violet-100 text-violet-700 font-bold text-sm rounded-full">
+                      <span className="inline-flex items-center justify-center w-8 h-8 bg-purple-600/20 text-purple-600 font-bold text-sm rounded-full">
                         {group.scenes.length}
                       </span>
                     </td>
                     <td className="px-4 py-4 text-center">
                       <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                        group.propertyStatus === 'approved' ? 'bg-green-100 text-green-700' :
-                        group.propertyStatus === 'pending' ? 'bg-orange-100 text-orange-700' :
-                        'bg-gray-100 text-gray-600'
+                        group.propertyStatus === 'approved' ? 'bg-emerald-500/20 text-emerald-500' :
+                        group.propertyStatus === 'pending' ? 'bg-yellow-500/20 text-yellow-500' :
+                        'bg-gray-50 text-gray-500'
                       }`}>
                         {group.propertyStatus}
                       </span>
@@ -223,7 +223,7 @@ export function AdminVirtualToursPage() {
                         <button
                           onClick={() => handlePreview(group)}
                           title="Preview virtual tour"
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-50 text-violet-700 hover:bg-violet-100 rounded-lg text-xs font-bold transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-600/10 text-purple-600 hover:bg-purple-600/20 rounded-lg text-xs font-bold transition-colors"
                         >
                           <Eye size={13} />
                           Preview
@@ -231,7 +231,7 @@ export function AdminVirtualToursPage() {
                         <button
                           onClick={() => window.open(`/property/${group.propertyId}`, '_blank')}
                           title="View property page"
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-600 hover:bg-gray-100 rounded-lg text-xs font-bold transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-500 hover:bg-gray-50 rounded-lg text-xs font-bold transition-colors"
                         >
                           <Globe size={13} />
                           View
@@ -239,7 +239,7 @@ export function AdminVirtualToursPage() {
                         <button
                           onClick={() => handleDeleteAllScenes(group)}
                           title="Delete all scenes"
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-bold transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 rounded-lg text-xs font-bold transition-colors"
                         >
                           <Trash2 size={13} />
                           Delete All

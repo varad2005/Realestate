@@ -6,3 +6,60 @@
   from { transform: scale(1); }
   to { transform: scale(1.1); }
 }
+
+/* Map Price Marker Styles */
+.price-marker {
+  background-color: white;
+  color: #1A1A1A;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-weight: 700;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  position: relative;
+  transform: translate(-50%, -100%);
+  cursor: pointer;
+  display: inline-block;
+  margin-top: -8px; /* Lift it up a bit */
+}
+
+/* The pointer triangle */
+.price-marker::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+  display: block;
+  width: 0;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+
+/* Hover State */
+.price-marker.hovered {
+  background-color: #FF3F6C;
+  color: white;
+  border-color: #FF3F6C;
+  z-index: 50;
+}
+.price-marker.hovered::after {
+  border-color: #FF3F6C transparent transparent transparent;
+}
+
+/* Selected State */
+.price-marker.selected {
+  background-color: #1A1A1A;
+  color: white;
+  border-color: #1A1A1A;
+  z-index: 100;
+}
+.price-marker.selected::after {
+  border-color: #1A1A1A transparent transparent transparent;
+}

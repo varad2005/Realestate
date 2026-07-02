@@ -92,7 +92,9 @@ export function Dynamic360Modal({
     if (e.target === e.currentTarget) onClose();
   };
 
-  if (!isOpen || tours.length === 0) return null;
+  const currentScene = activeScene || tours.find(t => t.is_default) || tours[0];
+
+  if (!isOpen || tours.length === 0 || !currentScene) return null;
 
   return (
     <div
@@ -107,13 +109,13 @@ export function Dynamic360Modal({
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-gradient-to-r from-violet-950/60 to-indigo-950/60">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-gradient-to-r from-accent/10/60 to-secondary/10/60">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-8 h-8 rounded-full bg-violet-600/30 border border-violet-500/50 flex items-center justify-center shrink-0">
-              <Globe size={15} className="text-violet-300" />
+            <div className="w-8 h-8 rounded-full bg-purple-600/30 border border-accent/50 flex items-center justify-center shrink-0">
+              <Globe size={15} className="text-purple-600/60" />
             </div>
             <div className="min-w-0">
-              <p className="text-[11px] font-bold text-violet-400 uppercase tracking-widest">
+              <p className="text-[11px] font-bold text-purple-600 uppercase tracking-widest">
                 360° Virtual Tour
               </p>
               <p className="text-sm font-semibold text-white truncate leading-tight">
@@ -125,16 +127,16 @@ export function Dynamic360Modal({
           <div className="flex items-center gap-3 shrink-0">
             {/* Current scene name */}
             <div className="hidden sm:flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">
-              <div className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
+              <div className="w-2 h-2 rounded-full bg-purple-600 animate-pulse" />
               <span className="text-xs font-semibold text-white/80 max-w-[160px] truncate">
-                {activeScene.title}
+                {currentScene.title}
               </span>
             </div>
 
             {/* Drag to explore badge */}
-            <div className="hidden md:flex items-center gap-1.5 bg-violet-600/20 border border-violet-500/30 px-3 py-1.5 rounded-full">
-              <Move3D size={13} className="text-violet-300" />
-              <span className="text-[10px] font-bold text-violet-300 uppercase tracking-wide">
+            <div className="hidden md:flex items-center gap-1.5 bg-purple-600/20 border border-accent/30 px-3 py-1.5 rounded-full">
+              <Move3D size={13} className="text-purple-600/60" />
+              <span className="text-[10px] font-bold text-purple-600/60 uppercase tracking-wide">
                 Drag to Explore
               </span>
             </div>
@@ -142,7 +144,7 @@ export function Dynamic360Modal({
             <button
               id="close-360-modal"
               onClick={onClose}
-              className="w-9 h-9 rounded-full bg-white/5 hover:bg-red-500/20 border border-white/10 hover:border-red-500/40 flex items-center justify-center text-white/60 hover:text-white transition-all"
+              className="w-9 h-9 rounded-full bg-white/5 hover:bg-red-500/20 border border-white/10 hover:border-destructive/40 flex items-center justify-center text-white/60 hover:text-white transition-all"
               aria-label="Close virtual tour"
             >
               <X size={17} />
@@ -153,14 +155,14 @@ export function Dynamic360Modal({
         {/* Viewer */}
         <div className="p-4 pb-2">
           <VirtualTourViewer
-            key={activeScene.id}
-            tour={activeScene}
+            key={currentScene.id}
+            tour={currentScene}
           />
 
           {/* Scene description */}
-          {activeScene.description && (
-            <p className="mt-3 text-sm text-gray-400 px-1 leading-relaxed">
-              {activeScene.description}
+          {currentScene.description && (
+            <p className="mt-3 text-sm text-gray-500 px-1 leading-relaxed">
+              {currentScene.description}
             </p>
           )}
         </div>
@@ -169,7 +171,7 @@ export function Dynamic360Modal({
         <div className="px-4 pb-5">
           <SceneSelector
             scenes={tours}
-            activeSceneId={activeScene.id}
+            activeSceneId={currentScene.id}
             onSceneChange={handleSceneChange}
           />
         </div>
@@ -179,8 +181,8 @@ export function Dynamic360Modal({
           <p className="text-[11px] text-gray-500">
             🖱️ Click & drag to look around · 🔍 Scroll to zoom · ⬛ Fullscreen button to expand
           </p>
-          <p className="text-[11px] text-gray-600">
-            {tours.indexOf(activeScene) + 1} / {tours.length}
+          <p className="text-[11px] text-gray-500">
+            {tours.indexOf(currentScene) + 1} / {tours.length}
           </p>
         </div>
       </div>

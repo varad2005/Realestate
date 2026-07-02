@@ -9,9 +9,9 @@ export function AdminProfilePage() {
     <div className="p-8 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
       <h1 className="text-3xl font-bold font-['Poppins'] text-gray-900 mb-8">Admin Profile</h1>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
         {/* Cover Photo Area */}
-        <div className="h-32 bg-gradient-to-r from-[#FF3F6C] to-purple-500 relative">
+        <div className="h-32 bg-gradient-to-r from-[#FF3F6C] to-accent relative">
           <button className="absolute bottom-4 right-4 bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm px-3 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
             <Camera size={16} />
             Change Cover
@@ -22,14 +22,14 @@ export function AdminProfilePage() {
         <div className="px-8 pb-8 relative">
           <div className="flex justify-between items-end -mt-12 mb-6">
             <div className="w-24 h-24 bg-white rounded-full p-1 shadow-md">
-              <div className="w-full h-full bg-gray-100 rounded-full flex items-center justify-center overflow-hidden relative group">
+              <div className="w-full h-full bg-gray-50 rounded-full flex items-center justify-center overflow-hidden relative group">
                 <img src="https://i.pravatar.cc/150?u=admin" alt="Admin" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                   <Camera size={20} className="text-white" />
                 </div>
               </div>
             </div>
-            <button className="flex items-center gap-2 bg-gray-50 text-gray-700 border border-gray-200 px-4 py-2 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+            <button className="flex items-center gap-2 bg-gray-50 text-gray-900 border border-gray-200 px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition-colors">
               <Edit3 size={16} />
               Edit Profile
             </button>
@@ -39,14 +39,14 @@ export function AdminProfilePage() {
             <div>
               <h2 className="text-2xl font-bold text-gray-900 font-['Poppins']">{user?.name || 'Admin User'}</h2>
               <p className="text-gray-500 font-medium mt-1 flex items-center gap-2">
-                <Shield size={16} className="text-[#FF3F6C]" />
+                <Shield size={16} className="text-pink-600" />
                 System Administrator
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-gray-100">
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50/50 border border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-gray-200">
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50/50 border border-gray-200">
+                <div className="w-10 h-10 rounded-full bg-indigo-600/10 text-indigo-600 flex items-center justify-center flex-shrink-0">
                   <UserIcon size={20} />
                 </div>
                 <div>
@@ -55,8 +55,8 @@ export function AdminProfilePage() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50/50 border border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-pink-50 text-[#FF3F6C] flex items-center justify-center flex-shrink-0">
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50/50 border border-gray-200">
+                <div className="w-10 h-10 rounded-full bg-pink-600/10 text-pink-600 flex items-center justify-center flex-shrink-0">
                   <Mail size={20} />
                 </div>
                 <div>
@@ -65,8 +65,8 @@ export function AdminProfilePage() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50/50 border border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50/50 border border-gray-200">
+                <div className="w-10 h-10 rounded-full bg-purple-600/10 text-purple-600 flex items-center justify-center flex-shrink-0">
                   <Shield size={20} />
                 </div>
                 <div>
@@ -75,8 +75,8 @@ export function AdminProfilePage() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50/50 border border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-green-50 text-green-600 flex items-center justify-center flex-shrink-0">
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50/50 border border-gray-200">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center flex-shrink-0">
                   <Calendar size={20} />
                 </div>
                 <div>

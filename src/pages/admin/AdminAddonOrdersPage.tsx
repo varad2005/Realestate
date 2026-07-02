@@ -37,7 +37,7 @@ export function AdminAddonOrdersPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-[#FF3F6C]" />
+        <Loader2 className="w-8 h-8 animate-spin text-pink-600" />
       </div>
     );
   }
@@ -52,7 +52,7 @@ export function AdminAddonOrdersPage() {
         
         <div className="flex gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
             <input 
               type="text" 
               placeholder="Search Orders..." 
@@ -61,7 +61,7 @@ export function AdminAddonOrdersPage() {
           </div>
           
           <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
             <select 
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
@@ -82,19 +82,19 @@ export function AdminAddonOrdersPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600">Order Details</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600">Property</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600">Amount</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600 text-center">Payment</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600 text-center">Fulfillment</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600 text-right">Action</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500">Order Details</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500">Property</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500">Amount</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500 text-center">Payment</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500 text-center">Fulfillment</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {filteredOrders.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
-                    <ShoppingCart className="w-12 h-12 mx-auto text-gray-300 mb-3" />
+                    <ShoppingCart className="w-12 h-12 mx-auto text-gray-500/50 mb-3" />
                     <p className="text-base font-medium text-gray-900">No Orders Found</p>
                     <p className="text-sm mt-1">No property addon orders match your criteria.</p>
                   </td>
@@ -105,10 +105,10 @@ export function AdminAddonOrdersPage() {
                     <td className="px-6 py-4">
                       <p className="font-bold text-gray-900">{order.addon?.name || 'Unknown Addon'}</p>
                       <p className="text-xs text-gray-500 mt-1 uppercase">ID: {order.id.split('-')[0]}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{new Date(order.created_at).toLocaleDateString()}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{new Date(order.created_at).toLocaleDateString()}</p>
                     </td>
                     <td className="px-6 py-4">
-                      <a href={`/property/${order.property_id}`} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:underline truncate block max-w-[200px]">
+                      <a href={`/property/${order.property_id}`} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:underline truncate block max-w-[200px]">
                         {order.property?.title || 'View Property'}
                       </a>
                     </td>
@@ -117,9 +117,9 @@ export function AdminAddonOrdersPage() {
                     </td>
                     <td className="px-6 py-4 text-center">
                       <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${
-                        order.payment_status === 'Paid' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                        order.payment_status === 'Failed' ? 'bg-red-50 text-red-700 border-red-200' :
-                        'bg-yellow-50 text-yellow-700 border-yellow-200'
+                        order.payment_status === 'Paid' ? 'bg-emerald-500/10 text-emerald-500 border-success/40' :
+                        order.payment_status === 'Failed' ? 'bg-red-500/10 text-red-500 border-destructive/40' :
+                        'bg-yellow-500/10 text-yellow-500 border-warning/40'
                       }`}>
                         {order.payment_status}
                       </span>
@@ -128,15 +128,15 @@ export function AdminAddonOrdersPage() {
                       <div className="flex items-center justify-center gap-1.5">
                         {order.order_status === 'Completed' ? <CheckCircle size={14} className="text-emerald-500" /> :
                          order.order_status === 'Cancelled' ? <XCircle size={14} className="text-red-500" /> :
-                         <Clock size={14} className="text-blue-500" />}
-                        <span className="text-sm font-medium text-gray-700">{order.order_status}</span>
+                         <Clock size={14} className="text-indigo-600" />}
+                        <span className="text-sm font-medium text-gray-900">{order.order_status}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4 text-right">
                       <select
                         value={order.order_status}
                         onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                        className="text-sm border border-gray-200 rounded-lg px-2 py-1 outline-none focus:border-[#FF3F6C]"
+                        className="text-sm border border-gray-200 rounded-lg px-2 py-1 outline-none focus:border-pink-600"
                       >
                         <option value="Pending">Pending</option>
                         <option value="In Progress">In Progress</option>

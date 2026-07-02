@@ -14,29 +14,29 @@ export function ReadyToMovePage() {
 
   return (
     <PageWrapper>
-      <div className="bg-white border-2 border-[#FF3F6C]/10 rounded-[2.5rem] p-12 mb-16 relative overflow-hidden shadow-sm">
+      <div className="bg-white border-2 border-pink-600/10 rounded-[2.5rem] p-12 mb-16 relative overflow-hidden shadow-sm">
         <div className="absolute right-0 top-0 w-1/3 h-full opacity-10" style={{ backgroundImage: `url(${getPropertyImage('670035')})`, backgroundSize: 'cover', backgroundPosition: 'center', clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0% 100%)' }} />
         
         <div className="relative z-10 max-w-2xl">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-[#FF3F6C]/10 text-[#FF3F6C] rounded-full flex items-center justify-center">
+            <div className="w-12 h-12 bg-pink-600/10 text-pink-600 rounded-full flex items-center justify-center">
               <KeyRound size={24} />
             </div>
-            <span className="text-[#FF3F6C] font-bold uppercase tracking-wider text-sm">Immediate Possession</span>
+            <span className="text-pink-600 font-bold uppercase tracking-wider text-sm">Immediate Possession</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black font-['Poppins'] text-[#1A1A1A] leading-tight mb-6">
+          <h1 className="text-4xl md:text-5xl font-black font-['Poppins'] text-gray-900 leading-tight mb-6">
             Move In Today. No Waiting.
           </h1>
-          <p className="text-gray-600 text-lg mb-8">
+          <p className="text-gray-500 text-lg mb-8">
             Skip the construction delays. Explore our curated list of 100% completed, ready-to-move-in homes.
           </p>
 
           <div className="flex gap-6 mb-4">
-            <div className="flex items-center gap-2 text-sm font-bold text-gray-700">
+            <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
               <ShieldCheck size={18} className="text-emerald-500" /> No GST Applicable
             </div>
-            <div className="flex items-center gap-2 text-sm font-bold text-gray-700">
-              <Clock size={18} className="text-blue-500" /> Zero Waiting Period
+            <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
+              <Clock size={18} className="text-indigo-600" /> Zero Waiting Period
             </div>
           </div>
         </div>

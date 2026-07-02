@@ -66,6 +66,11 @@ const navItems: NavItem[] = [
     showOn: ["landing", "dashboard", "post-property"], 
     badge: "NEW" 
   },
+  {
+    label: "🗺 Explore on Map",
+    path: "/explore-map",
+    showOn: ["landing", "dashboard", "post-property"]
+  },
 ];
 
 export function Navbar({ wishlistCount }: { wishlistCount?: number }) {
@@ -89,7 +94,7 @@ export function Navbar({ wishlistCount }: { wishlistCount?: number }) {
   const getDropdownItemClass = (path: string) => {
     const isActive = location.pathname + location.search === path;
     return `text-left px-4 py-2.5 rounded-lg text-sm transition-colors block ${
-      isActive ? 'bg-gray-50 text-[#FF3F6C] font-bold' : 'hover:bg-gray-50 text-gray-700 font-medium'
+      isActive ? 'bg-gray-50 text-pink-600 font-bold' : 'hover:bg-gray-50 text-gray-900 font-medium'
     }`;
   };
 
@@ -99,7 +104,7 @@ export function Navbar({ wishlistCount }: { wishlistCount?: number }) {
         {/* LEFT: Logo */}
         <div className="flex shrink-0">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#FF3F6C] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF3F6C]/20">
+            <div className="w-8 h-8 bg-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-[#FF3F6C]/20">
               <Building size={17} className="text-white" />
             </div>
             <span className="text-2xl font-bold font-['Poppins'] tracking-tight text-white drop-shadow-md">
@@ -119,7 +124,7 @@ export function Navbar({ wishlistCount }: { wishlistCount?: number }) {
                     {item.label} <ChevronDown size={14} className="opacity-70 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 z-50">
-                    <div className="bg-white rounded-2xl shadow-2xl p-2 w-64 border border-gray-100 grid grid-cols-1 gap-1">
+                    <div className="bg-white rounded-2xl shadow-2xl p-2 w-64 border border-gray-200 grid grid-cols-1 gap-1">
                       {item.dropdown.map((dropItem, idx) => (
                         <NavLink to={dropItem.path} key={idx} className={() => getDropdownItemClass(dropItem.path)}>
                           {dropItem.label}
@@ -133,7 +138,7 @@ export function Navbar({ wishlistCount }: { wishlistCount?: number }) {
                 <NavLink to={item.path} className={getLinkClass}>
                   <span>{item.label}</span>
                   {item.badge && (
-                    <span className="bg-[#FF3F6C] text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider">
+                    <span className="bg-pink-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider">
                       {item.badge}
                     </span>
                   )}
@@ -152,10 +157,10 @@ export function Navbar({ wishlistCount }: { wishlistCount?: number }) {
 
         {/* RIGHT: Actions */}
         <div className="flex justify-end items-center gap-3 md:gap-5 shrink-0">
-          <Link to="/saved-listings" className="relative hover:text-[#FF3F6C] transition-colors p-2 hidden sm:block">
+          <Link to="/saved-listings" className="relative hover:text-pink-600 transition-colors p-2 hidden sm:block">
             <Heart size={20} className="text-white/90" />
             {wishlistCount !== undefined && wishlistCount > 0 && (
-              <span className="absolute top-1 right-0 w-4 h-4 rounded-full bg-[#FF3F6C] text-white text-[9px] font-bold flex items-center justify-center shadow-sm">
+              <span className="absolute top-1 right-0 w-4 h-4 rounded-full bg-pink-600 text-white text-[9px] font-bold flex items-center justify-center shadow-sm">
                 {wishlistCount}
               </span>
             )}
@@ -170,7 +175,7 @@ export function Navbar({ wishlistCount }: { wishlistCount?: number }) {
 
           <Link 
             to="/post-property" 
-            className="bg-[#FF3F6C] text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-[#FF3F6C]/20 hover:bg-[#e62e5c] transition-all hover:-translate-y-0.5 flex items-center gap-2"
+            className="bg-pink-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-[#FF3F6C]/20 hover:bg-pink-600/90 transition-all hover:-translate-y-0.5 flex items-center gap-2"
           >
             Post Property
             <span className="hidden xl:inline bg-white/20 px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">Free</span>

@@ -10,10 +10,10 @@ interface UserTableProps {
 
 export function UserTable({ users, isLoading, actionLoadingId, onUpdateRole, onDelete }: UserTableProps) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left">
-          <thead className="bg-gray-50 border-b border-gray-100">
+          <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
               <th className="px-6 py-4 font-bold text-gray-500 text-sm uppercase tracking-wider">Name</th>
               <th className="px-6 py-4 font-bold text-gray-500 text-sm uppercase tracking-wider">Email</th>
@@ -29,21 +29,21 @@ export function UserTable({ users, isLoading, actionLoadingId, onUpdateRole, onD
               <tr><td colSpan={5} className="px-6 py-8 text-center text-gray-500">No users found</td></tr>
             ) : (
               users.map((u) => (
-                <tr key={u.id} className={`transition-colors ${u.role === 'admin' ? 'bg-blue-50/20' : 'hover:bg-gray-50'}`}>
+                <tr key={u.id} className={`transition-colors ${u.role === 'admin' ? 'bg-indigo-600/10/20' : 'hover:bg-gray-50'}`}>
                   <td className="px-6 py-4 font-medium flex items-center gap-2 text-gray-900">
                     {u.name}
-                    {u.role === 'admin' && <ShieldAlert size={14} className="text-blue-500" />}
+                    {u.role === 'admin' && <ShieldAlert size={14} className="text-indigo-600" />}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">{u.email}</td>
+                  <td className="px-6 py-4 text-gray-500">{u.email}</td>
                   <td className="px-6 py-4">
                     <select
                       disabled={actionLoadingId === u.id}
                       value={u.role}
                       onChange={(e) => onUpdateRole(u.id, e.target.value as 'admin' | 'owner' | 'dealer')}
                       className={`text-xs font-bold px-3 py-1.5 rounded-full border-0 outline-none cursor-pointer disabled:opacity-50 ${
-                        u.role === 'admin' ? 'bg-blue-100 text-blue-700' :
-                        u.role === 'dealer' ? 'bg-purple-100 text-purple-700' :
-                        'bg-gray-100 text-gray-700'
+                        u.role === 'admin' ? 'bg-indigo-600/20 text-indigo-600' :
+                        u.role === 'dealer' ? 'bg-purple-600/20 text-purple-600' :
+                        'bg-gray-50 text-gray-900'
                       }`}
                     >
                       <option value="owner">Owner</option>
@@ -62,7 +62,7 @@ export function UserTable({ users, isLoading, actionLoadingId, onUpdateRole, onD
                           onDelete(u.id);
                         }
                       }}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
+                      className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
                       title={u.role === 'admin' ? "Cannot delete admin users" : "Delete User"}
                     >
                       <Trash2 size={18} />

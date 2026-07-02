@@ -24,13 +24,13 @@ export function EMIWidget({ propertyPrice, maintenanceCharges }: { propertyPrice
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 md:p-8">
+    <div className="bg-white rounded-3xl border border-gray-200 shadow-sm p-6 md:p-8">
       <div className="flex items-center gap-3 mb-8">
-        <div className="w-12 h-12 rounded-full bg-indigo-50 text-indigo-500 flex items-center justify-center">
+        <div className="w-12 h-12 rounded-full bg-indigo-600/10 text-indigo-600 flex items-center justify-center">
           <Calculator size={24} />
         </div>
         <div>
-          <h3 className="text-xl font-bold font-['Poppins'] text-[#1A1A1A]">EMI Calculator</h3>
+          <h3 className="text-xl font-bold font-['Poppins'] text-gray-900">EMI Calculator</h3>
           <p className="text-sm text-gray-500">Plan your home loan</p>
         </div>
       </div>
@@ -40,9 +40,9 @@ export function EMIWidget({ propertyPrice, maintenanceCharges }: { propertyPrice
         <div className="space-y-6">
           <div>
             <div className="flex justify-between items-end mb-2">
-              <label className="font-bold text-gray-700 text-sm">Property Price</label>
+              <label className="font-bold text-gray-900 text-sm">Property Price</label>
               <div className="text-right">
-                <span className="font-bold text-[#1A1A1A] text-lg">{formatCurrency(customPrice)}</span>
+                <span className="font-bold text-gray-900 text-lg">{formatCurrency(customPrice)}</span>
               </div>
             </div>
             <input 
@@ -50,7 +50,7 @@ export function EMIWidget({ propertyPrice, maintenanceCharges }: { propertyPrice
               min={1000000} max={100000000} step={500000} 
               value={customPrice}
               onChange={(e) => setCustomPrice(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF3F6C]"
+              className="w-full h-2 bg-gray-50/80 rounded-lg appearance-none cursor-pointer accent-[#FF3F6C]"
             />
           </div>
           <SliderControl 
@@ -80,33 +80,33 @@ export function EMIWidget({ propertyPrice, maintenanceCharges }: { propertyPrice
         </div>
 
         {/* Results */}
-        <div className="bg-indigo-900 rounded-2xl p-8 text-white relative overflow-hidden">
-          <div className="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-2xl" />
-          <p className="text-indigo-200 text-sm mb-2 relative z-10">Your Monthly EMI will be</p>
+        <div className="bg-indigo-600 rounded-2xl p-8 text-white relative overflow-hidden">
+          <div className="absolute -right-10 -top-10 w-40 h-40 bg-indigo-600/20 rounded-full blur-2xl" />
+          <p className="text-indigo-600/40 text-sm mb-2 relative z-10">Your Monthly EMI will be</p>
           <p className="text-4xl font-black font-['Poppins'] mb-8 relative z-10">{formatCurrency(emi)}</p>
           
           <div className="space-y-4 relative z-10">
-            <div className="flex justify-between items-center pb-3 border-b border-indigo-700/50">
-              <span className="text-indigo-200 text-sm">Principal Amount</span>
+            <div className="flex justify-between items-center pb-3 border-b border-secondary/50">
+              <span className="text-indigo-600/40 text-sm">Principal Amount</span>
               <span className="font-bold">{formatCurrency(loanAmount)}</span>
             </div>
-            <div className="flex justify-between items-center pb-3 border-b border-indigo-700/50">
-              <span className="text-indigo-200 text-sm">Interest Amount</span>
+            <div className="flex justify-between items-center pb-3 border-b border-secondary/50">
+              <span className="text-indigo-600/40 text-sm">Interest Amount</span>
               <span className="font-bold">{formatCurrency((emi * months) - loanAmount)}</span>
             </div>
             {maintenanceCharges && (
-              <div className="flex justify-between items-center pt-2 pb-2 border-b border-indigo-700/50">
-                <span className="text-indigo-200 text-sm">Monthly Maintenance</span>
-                <span className="font-bold text-yellow-400">{formatCurrency(maintenanceCharges)}</span>
+              <div className="flex justify-between items-center pt-2 pb-2 border-b border-secondary/50">
+                <span className="text-indigo-600/40 text-sm">Monthly Maintenance</span>
+                <span className="font-bold text-yellow-500">{formatCurrency(maintenanceCharges)}</span>
               </div>
             )}
             <div className="flex justify-between items-center pt-2">
-              <span className="text-indigo-200 text-sm">Total Payable</span>
-              <span className="font-bold text-emerald-400">{formatCurrency(emi * months)}</span>
+              <span className="text-indigo-600/40 text-sm">Total Payable</span>
+              <span className="font-bold text-emerald-500/80">{formatCurrency(emi * months)}</span>
             </div>
           </div>
           
-          <button className="w-full mt-8 bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-3 rounded-xl transition-colors relative z-10">
+          <button className="w-full mt-8 bg-indigo-600 hover:bg-indigo-600/80 text-white font-bold py-3 rounded-xl transition-colors relative z-10">
             Apply for Home Loan
           </button>
         </div>
@@ -119,9 +119,9 @@ function SliderControl({ label, value, setValue, min, max, step, suffix, subText
   return (
     <div>
       <div className="flex justify-between items-end mb-2">
-        <label className="font-bold text-gray-700 text-sm">{label}</label>
+        <label className="font-bold text-gray-900 text-sm">{label}</label>
         <div className="text-right">
-          <span className="font-bold text-[#1A1A1A] text-lg">{value}{suffix}</span>
+          <span className="font-bold text-gray-900 text-lg">{value}{suffix}</span>
           {subText && <span className="text-xs text-gray-500 ml-2">({subText})</span>}
         </div>
       </div>
@@ -130,9 +130,9 @@ function SliderControl({ label, value, setValue, min, max, step, suffix, subText
         min={min} max={max} step={step} 
         value={value}
         onChange={(e) => setValue(Number(e.target.value))}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF3F6C]"
+        className="w-full h-2 bg-gray-50/80 rounded-lg appearance-none cursor-pointer accent-[#FF3F6C]"
       />
-      <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium">
+      <div className="flex justify-between text-xs text-gray-500 mt-2 font-medium">
         <span>{min}{suffix}</span>
         <span>{max}{suffix}</span>
       </div>

@@ -6,7 +6,7 @@ interface PropertyOverviewChartProps {
 
 export function PropertyOverviewChart({ data }: PropertyOverviewChartProps) {
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-full flex flex-col">
+    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 h-full flex flex-col">
       <div className="flex justify-between items-center mb-6">
         <h3 className="font-bold text-gray-900 font-['Poppins']">Property Overview</h3>
         <select className="text-sm border-gray-200 rounded-lg text-gray-500 outline-none bg-gray-50 px-3 py-1.5">
@@ -42,7 +42,7 @@ interface CityDistributionChartProps {
 
 export function CityDistributionChart({ data, total }: CityDistributionChartProps) {
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-full flex flex-col">
+    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 h-full flex flex-col">
       <h3 className="font-bold text-gray-900 font-['Poppins'] mb-6">Properties by City</h3>
       <div className="flex-1 min-h-[300px] flex items-center justify-center relative">
         <ResponsiveContainer width="100%" height="100%">

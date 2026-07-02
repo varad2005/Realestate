@@ -8,29 +8,29 @@ interface ActivityPanelProps {
 export function ActivityPanel({ activities }: ActivityPanelProps) {
   const getIcon = (type: string) => {
     switch (type) {
-      case 'property_approved': return <CheckCircle size={18} className="text-green-500" />;
+      case 'property_approved': return <CheckCircle size={18} className="text-emerald-500" />;
       case 'property_rejected': return <XCircle size={18} className="text-red-500" />;
-      case 'property_submitted': return <Home size={18} className="text-orange-500" />;
-      case 'user_registered': return <UserPlus size={18} className="text-blue-500" />;
+      case 'property_submitted': return <Home size={18} className="text-yellow-500" />;
+      case 'user_registered': return <UserPlus size={18} className="text-indigo-600" />;
       default: return <CheckCircle size={18} className="text-gray-500" />;
     }
   };
 
   const getBg = (type: string) => {
     switch (type) {
-      case 'property_approved': return 'bg-green-50';
-      case 'property_rejected': return 'bg-red-50';
-      case 'property_submitted': return 'bg-orange-50';
-      case 'user_registered': return 'bg-blue-50';
+      case 'property_approved': return 'bg-emerald-500/10';
+      case 'property_rejected': return 'bg-red-500/10';
+      case 'property_submitted': return 'bg-yellow-500/10';
+      case 'user_registered': return 'bg-indigo-600/10';
       default: return 'bg-gray-50';
     }
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-full flex flex-col">
+    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 h-full flex flex-col">
       <div className="flex justify-between items-center mb-6">
         <h3 className="font-bold text-gray-900 font-['Poppins']">Recent Activity</h3>
-        <button className="text-[#FF3F6C] text-sm font-semibold hover:underline">View All</button>
+        <button className="text-pink-600 text-sm font-semibold hover:underline">View All</button>
       </div>
 
       <div className="flex-1 overflow-y-auto pr-2 space-y-5">
@@ -46,7 +46,7 @@ export function ActivityPanel({ activities }: ActivityPanelProps) {
                 <p className="text-sm font-semibold text-gray-900">{activity.title}</p>
                 <p className="text-sm text-gray-500 truncate">{activity.subtitle}</p>
               </div>
-              <div className="text-xs text-gray-400 whitespace-nowrap pt-0.5">
+              <div className="text-xs text-gray-500 whitespace-nowrap pt-0.5">
                 {formatDistanceToNow(new Date(activity.created_at), { addSuffix: true })}
               </div>
             </div>

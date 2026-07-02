@@ -54,26 +54,26 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
       className="flex items-center justify-between cursor-pointer py-2 group"
       onClick={() => toggleSection(section)}
     >
-      <p className="text-[11px] font-bold text-gray-800 uppercase tracking-widest group-hover:text-[#FF3F6C] transition-colors">{title}</p>
-      {openSections[section] ? <ChevronUp size={16} className="text-gray-400 group-hover:text-[#FF3F6C]" /> : <ChevronDown size={16} className="text-gray-400 group-hover:text-[#FF3F6C]" />}
+      <p className="text-[11px] font-bold text-gray-900 uppercase tracking-widest group-hover:text-pink-600 transition-colors">{title}</p>
+      {openSections[section] ? <ChevronUp size={16} className="text-gray-500 group-hover:text-pink-600" /> : <ChevronDown size={16} className="text-gray-500 group-hover:text-pink-600" />}
     </div>
   );
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col h-[calc(100vh-140px)] sticky top-28">
-      <div className="flex items-center justify-between p-5 border-b border-gray-50 shrink-0">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 flex flex-col h-[calc(100vh-140px)] sticky top-28">
+      <div className="flex items-center justify-between p-5 border-b border-gray-300/10 shrink-0">
         <div className="flex items-center gap-2">
-          <SlidersHorizontal size={18} className="text-gray-700" />
-          <p className="font-bold text-[#1A1A1A] font-['Poppins']">Filters</p>
+          <SlidersHorizontal size={18} className="text-gray-900" />
+          <p className="font-bold text-gray-900 font-['Poppins']">Filters</p>
         </div>
-        <button onClick={onClear} className="text-xs text-[#FF3F6C] font-bold hover:underline bg-[#FF3F6C]/10 px-3 py-1.5 rounded-lg">
+        <button onClick={onClear} className="text-xs text-pink-600 font-bold hover:underline bg-pink-600/10 px-3 py-1.5 rounded-lg">
           Clear All
         </button>
       </div>
 
       <div className="p-5 space-y-6 overflow-y-auto custom-scrollbar flex-1">
         {/* Price Range */}
-        <div className="border-b border-gray-50 pb-4">
+        <div className="border-b border-gray-300/10 pb-4">
           <SectionHeader title="Price Range" section="price" />
           {openSections.price && (
             <div className="flex flex-col gap-3 mt-3">
@@ -82,21 +82,21 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                 placeholder="Min Price (₹)" 
                 value={filters.minPrice || ''}
                 onChange={(e) => updateFilter('minPrice', e.target.value ? Number(e.target.value) : undefined)}
-                className="border border-gray-200 rounded-lg p-2.5 text-sm w-full outline-none focus:border-[#FF3F6C] focus:ring-1 focus:ring-[#FF3F6C]"
+                className="border border-gray-200 rounded-lg p-2.5 text-sm w-full outline-none focus:border-pink-600 focus:ring-1 focus:ring-[#FF3F6C]"
               />
               <input 
                 type="number" 
                 placeholder="Max Price (₹)" 
                 value={filters.maxPrice || ''}
                 onChange={(e) => updateFilter('maxPrice', e.target.value ? Number(e.target.value) : undefined)}
-                className="border border-gray-200 rounded-lg p-2.5 text-sm w-full outline-none focus:border-[#FF3F6C] focus:ring-1 focus:ring-[#FF3F6C]"
+                className="border border-gray-200 rounded-lg p-2.5 text-sm w-full outline-none focus:border-pink-600 focus:ring-1 focus:ring-[#FF3F6C]"
               />
             </div>
           )}
         </div>
 
         {/* BHK */}
-        <div className="border-b border-gray-50 pb-4">
+        <div className="border-b border-gray-300/10 pb-4">
           <SectionHeader title="BHK Type" section="bhk" />
           {openSections.bhk && (
             <div className="flex flex-wrap gap-2 mt-3">
@@ -108,8 +108,8 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                     onClick={() => toggleArrayFilter('bhk', bhk)}
                     className={`h-9 px-3 rounded-lg font-bold text-sm border transition-colors ${
                       isSelected 
-                        ? 'bg-[#FF3F6C] text-white border-[#FF3F6C]' 
-                        : 'bg-white text-gray-600 border-gray-200 hover:border-[#FF3F6C] hover:text-[#FF3F6C]'
+                        ? 'bg-pink-600 text-white border-pink-600' 
+                        : 'bg-white text-gray-500 border-gray-200 hover:border-pink-600 hover:text-pink-600'
                     }`}
                   >
                     {bhk}{bhk === 6 ? '+' : ' BHK'}
@@ -121,7 +121,7 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
         </div>
 
         {/* Property Type */}
-        <div className="border-b border-gray-50 pb-4">
+        <div className="border-b border-gray-300/10 pb-4">
           <SectionHeader title="Property Type" section="propertyType" />
           {openSections.propertyType && (
             <div className="space-y-2 mt-3">
@@ -131,9 +131,9 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                     type="checkbox" 
                     checked={(filters.propertyType || []).includes(type.toLowerCase())}
                     onChange={() => toggleArrayFilter('propertyType', type.toLowerCase())}
-                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-300"
+                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-200"
                   />
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{type}</span>
+                  <span className="text-sm text-gray-500 group-hover:text-gray-900 transition-colors">{type}</span>
                 </label>
               ))}
             </div>
@@ -141,7 +141,7 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
         </div>
 
         {/* Furnishing */}
-        <div className="border-b border-gray-50 pb-4">
+        <div className="border-b border-gray-300/10 pb-4">
           <SectionHeader title="Furnishing" section="furnishing" />
           {openSections.furnishing && (
             <div className="space-y-2 mt-3">
@@ -151,9 +151,9 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                     type="checkbox" 
                     checked={(filters.furnishing || []).includes(f)}
                     onChange={() => toggleArrayFilter('furnishing', f)}
-                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-300"
+                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-200"
                   />
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{f}</span>
+                  <span className="text-sm text-gray-500 group-hover:text-gray-900 transition-colors">{f}</span>
                 </label>
               ))}
             </div>
@@ -161,7 +161,7 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
         </div>
 
         {/* Possession Status */}
-        <div className="border-b border-gray-50 pb-4">
+        <div className="border-b border-gray-300/10 pb-4">
           <SectionHeader title="Possession Status" section="possession" />
           {openSections.possession && (
             <div className="space-y-2 mt-3">
@@ -171,9 +171,9 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                     type="checkbox" 
                     checked={(filters.possessionStatus || []).includes(p)}
                     onChange={() => toggleArrayFilter('possessionStatus', p)}
-                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-300"
+                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-200"
                   />
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{p}</span>
+                  <span className="text-sm text-gray-500 group-hover:text-gray-900 transition-colors">{p}</span>
                 </label>
               ))}
             </div>
@@ -181,7 +181,7 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
         </div>
 
         {/* Ownership */}
-        <div className="border-b border-gray-50 pb-4">
+        <div className="border-b border-gray-300/10 pb-4">
           <SectionHeader title="Ownership" section="ownership" />
           {openSections.ownership && (
             <div className="space-y-2 mt-3">
@@ -191,9 +191,9 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                     type="checkbox" 
                     checked={(filters.ownershipType || []).includes(o)}
                     onChange={() => toggleArrayFilter('ownershipType', o)}
-                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-300"
+                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-200"
                   />
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{o}</span>
+                  <span className="text-sm text-gray-500 group-hover:text-gray-900 transition-colors">{o}</span>
                 </label>
               ))}
             </div>
@@ -201,7 +201,7 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
         </div>
 
         {/* Posted By */}
-        <div className="border-b border-gray-50 pb-4">
+        <div className="border-b border-gray-300/10 pb-4">
           <SectionHeader title="Posted By" section="postedBy" />
           {openSections.postedBy && (
             <div className="space-y-2 mt-3">
@@ -211,9 +211,9 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                     type="checkbox" 
                     checked={(filters.postedByRole || []).includes(r)}
                     onChange={() => toggleArrayFilter('postedByRole', r)}
-                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-300"
+                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-200"
                   />
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{r}</span>
+                  <span className="text-sm text-gray-500 group-hover:text-gray-900 transition-colors">{r}</span>
                 </label>
               ))}
             </div>
@@ -221,7 +221,7 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
         </div>
 
         {/* Media */}
-        <div className="border-b border-gray-50 pb-4">
+        <div className="border-b border-gray-300/10 pb-4">
           <SectionHeader title="Media Requirements" section="media" />
           {openSections.media && (
             <div className="space-y-2 mt-3">
@@ -230,29 +230,29 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                   type="checkbox" 
                   checked={filters.hasVideos || false}
                   onChange={(e) => updateFilter('hasVideos', e.target.checked ? true : undefined)}
-                  className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-300"
+                  className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-200"
                 />
-                <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Has Videos</span>
+                <span className="text-sm text-gray-500 group-hover:text-gray-900 transition-colors">Has Videos</span>
               </label>
               <label className="flex items-center gap-3 cursor-pointer group">
                 <input 
                   type="checkbox" 
                   checked={filters.hasImages || false}
                   onChange={(e) => updateFilter('hasImages', e.target.checked ? true : undefined)}
-                  className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-300"
+                  className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-200"
                 />
-                <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Has Images</span>
+                <span className="text-sm text-gray-500 group-hover:text-gray-900 transition-colors">Has Images</span>
               </label>
               <label className="flex items-center gap-3 cursor-pointer group">
                 <input 
                   type="checkbox" 
                   checked={filters.hasVirtualTour || false}
                   onChange={(e) => updateFilter('hasVirtualTour', e.target.checked ? true : undefined)}
-                  className="accent-violet-600 w-4 h-4 rounded border-gray-300"
+                  className="accent-violet-600 w-4 h-4 rounded border-gray-200"
                 />
-                <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors flex items-center gap-1.5">
+                <span className="text-sm text-gray-500 group-hover:text-gray-900 transition-colors flex items-center gap-1.5">
                   Has 360° Virtual Tour
-                  <span className="text-[9px] font-bold bg-violet-100 text-violet-700 px-1.5 py-0.5 rounded-full uppercase tracking-wide">New</span>
+                  <span className="text-[9px] font-bold bg-purple-600/20 text-purple-600 px-1.5 py-0.5 rounded-full uppercase tracking-wide">New</span>
                 </span>
               </label>
             </div>
@@ -271,9 +271,9 @@ export function AdvancedFilters({ filters, setFilters, onClear }: AdvancedFilter
                     type="checkbox" 
                     checked={(filters.amenities || []).includes(a)}
                     onChange={() => toggleArrayFilter('amenities', a)}
-                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-300"
+                    className="accent-[#FF3F6C] w-4 h-4 rounded border-gray-200"
                   />
-                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{a}</span>
+                  <span className="text-sm text-gray-500 group-hover:text-gray-900 transition-colors">{a}</span>
                 </label>
               ))}
             </div>

@@ -1,8 +1,8 @@
 const { createClient } = require('@supabase/supabase-js');
 const WebSocket = require('ws');
 
-const SUPABASE_URL = "https://gghbeddckyaphbpbqwye.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdnaGJlZGRja3lhcGhicGJxd3llIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5MjE4MTQsImV4cCI6MjA5NzQ5NzgxNH0.Hfh1whTZvdk265118n0EV0N6RRjP8iPWTb8ByPeC06E";
+const SUPABASE_URL = "https://vguellwkjbbeqvhuexfg.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZndWVsbHdramJiZXF2aHVleGZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5ODk2NzgsImV4cCI6MjA5ODU2NTY3OH0.6lwDLVuBaU1OImf8pciwGoKZ-UpJ3PduMLOcneckLjE";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth: { persistSession: false },

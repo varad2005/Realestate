@@ -70,7 +70,7 @@ export function AdminBannersPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-[#FF3F6C]" />
+        <Loader2 className="w-8 h-8 animate-spin text-pink-600" />
       </div>
     );
   }
@@ -84,7 +84,7 @@ export function AdminBannersPage() {
         </div>
         <button
           onClick={() => { setEditingBanner(undefined); setIsModalOpen(true); }}
-          className="bg-[#FF3F6C] text-white px-4 py-2.5 rounded-xl font-medium hover:bg-[#e62e5c] transition-colors flex items-center gap-2"
+          className="bg-pink-600 text-white px-4 py-2.5 rounded-xl font-medium hover:bg-pink-600/90 transition-colors flex items-center gap-2"
         >
           <Plus size={18} /> Add New Banner
         </button>
@@ -95,18 +95,18 @@ export function AdminBannersPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600">Thumbnail</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600">Title</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600 text-center">Status</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600 text-center">Order</th>
-                <th className="px-6 py-4 text-sm font-semibold text-gray-600 text-right">Actions</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500">Thumbnail</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500">Title</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500 text-center">Status</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500 text-center">Order</th>
+                <th className="px-6 py-4 text-sm font-semibold text-gray-500 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {banners.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
-                    <ImageIcon className="w-12 h-12 mx-auto text-gray-300 mb-3" />
+                    <ImageIcon className="w-12 h-12 mx-auto text-gray-500/50 mb-3" />
                     <p className="text-base font-medium text-gray-900">No banners found</p>
                     <p className="text-sm mt-1">Click "Add New Banner" to create one.</p>
                   </td>
@@ -115,7 +115,7 @@ export function AdminBannersPage() {
                 banners.map((banner, index) => (
                   <tr key={banner.id} className="hover:bg-gray-50/50 transition-colors">
                     <td className="px-6 py-4">
-                      <div className="w-24 h-14 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
+                      <div className="w-24 h-14 rounded-lg overflow-hidden bg-gray-50 border border-gray-200">
                         <img 
                           src={banner.image_url} 
                           alt={banner.title}
@@ -132,8 +132,8 @@ export function AdminBannersPage() {
                         onClick={() => handleToggleActive(banner)}
                         className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border transition-colors ${
                           banner.is_active 
-                            ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' 
-                            : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
+                            ? 'bg-emerald-500/10 text-emerald-500 border-success/40 hover:bg-emerald-500/20' 
+                            : 'bg-gray-50 text-gray-500 border-gray-200 hover:bg-gray-50'
                         }`}
                       >
                         {banner.is_active ? 'Active' : 'Disabled'}
@@ -144,15 +144,15 @@ export function AdminBannersPage() {
                         <button 
                           onClick={() => handleMove(index, 'up')}
                           disabled={index === 0}
-                          className="p-1 text-gray-400 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                          className="p-1 text-gray-500 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                         >
                           <ArrowUp size={16} />
                         </button>
-                        <span className="w-6 text-center font-medium text-gray-700">{banner.display_order}</span>
+                        <span className="w-6 text-center font-medium text-gray-900">{banner.display_order}</span>
                         <button 
                           onClick={() => handleMove(index, 'down')}
                           disabled={index === banners.length - 1}
-                          className="p-1 text-gray-400 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                          className="p-1 text-gray-500 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                         >
                           <ArrowDown size={16} />
                         </button>
@@ -162,14 +162,14 @@ export function AdminBannersPage() {
                       <div className="flex items-center justify-end gap-2">
                         <button 
                           onClick={() => { setEditingBanner(banner); setIsModalOpen(true); }}
-                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-600/10 rounded-lg transition-colors"
                           title="Edit"
                         >
                           <Edit2 size={16} />
                         </button>
                         <button 
                           onClick={() => handleDelete(banner.id)}
-                          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
                           title="Delete"
                         >
                           <Trash2 size={16} />

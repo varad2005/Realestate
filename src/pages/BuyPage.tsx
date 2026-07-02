@@ -61,10 +61,10 @@ export function BuyPage() {
   return (
     <PageWrapper>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold font-['Poppins'] text-[#1A1A1A]">
+        <h1 className="text-3xl font-bold font-['Poppins'] text-gray-900">
           Properties for Sale {filters.query ? `for "${filters.query}"` : ''}
         </h1>
-        <p className="mt-2 text-[#6B7280]">Showing verified listings</p>
+        <p className="mt-2 text-gray-500-foreground">Showing verified listings</p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
@@ -97,7 +97,7 @@ export function BuyPage() {
                       if (chip === 'Owner') handleFilterChange({ ...filters, postedByRole: ['owner'] });
                       if (chip === 'Luxury') handleFilterChange({ ...filters, minPrice: 50000000 });
                     }}
-                    className="bg-white border border-gray-200 text-xs font-bold text-gray-600 px-3 py-1.5 rounded-full hover:border-[#FF3F6C] hover:text-[#FF3F6C] transition-colors shadow-sm"
+                    className="bg-white border border-gray-200 text-xs font-bold text-gray-500 px-3 py-1.5 rounded-full hover:border-pink-600 hover:text-pink-600 transition-colors shadow-sm"
                   >
                     {chip}
                   </button>
@@ -110,7 +110,7 @@ export function BuyPage() {
                 <select 
                   value={filters.sortBy || 'new'}
                   onChange={(e) => handleFilterChange({ ...filters, sortBy: e.target.value })}
-                  className="bg-white border border-gray-200 text-sm font-medium text-gray-700 px-3 py-1.5 rounded-lg outline-none focus:border-[#FF3F6C] shadow-sm"
+                  className="bg-white border border-gray-200 text-sm font-medium text-gray-900 px-3 py-1.5 rounded-lg outline-none focus:border-pink-600 shadow-sm"
                 >
                   <option value="new">Newest First</option>
                   <option value="price_asc">Price: Low to High</option>
@@ -143,26 +143,26 @@ export function BuyPage() {
                 <button 
                   onClick={handlePrevPage}
                   disabled={page === 1}
-                  className={`flex items-center gap-1 px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${page === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white border border-gray-200 text-[#1A1A1A] hover:border-[#FF3F6C] hover:text-[#FF3F6C]'}`}
+                  className={`flex items-center gap-1 px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${page === 1 ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : 'bg-white border border-gray-200 text-gray-900 hover:border-pink-600 hover:text-pink-600'}`}
                 >
                   <ChevronLeft size={16} /> Prev
                 </button>
-                <span className="text-sm font-bold text-gray-700">Page {page}</span>
+                <span className="text-sm font-bold text-gray-900">Page {page}</span>
                 <button 
                   onClick={handleNextPage}
                   disabled={properties.length < limit}
-                  className={`flex items-center gap-1 px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${properties.length < limit ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white border border-gray-200 text-[#1A1A1A] hover:border-[#FF3F6C] hover:text-[#FF3F6C]'}`}
+                  className={`flex items-center gap-1 px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${properties.length < limit ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : 'bg-white border border-gray-200 text-gray-900 hover:border-pink-600 hover:text-pink-600'}`}
                 >
                   Next <ChevronRight size={16} />
                 </button>
               </div>
             </>
           ) : (
-            <div className="text-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm">
-              <MapPin className="mx-auto h-12 w-12 text-gray-300 mb-4" />
+            <div className="text-center py-20 bg-white rounded-2xl border border-gray-200 shadow-sm">
+              <MapPin className="mx-auto h-12 w-12 text-gray-500/50 mb-4" />
               <h3 className="text-lg font-bold text-gray-900 font-['Poppins']">No properties found</h3>
               <p className="mt-2 text-gray-500">Try adjusting your filters or search criteria.</p>
-              <button onClick={handleClearFilters} className="mt-6 text-[#FF3F6C] font-semibold hover:underline">
+              <button onClick={handleClearFilters} className="mt-6 text-pink-600 font-semibold hover:underline">
                 Clear all filters
               </button>
             </div>

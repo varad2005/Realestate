@@ -42,8 +42,8 @@ export function ExploreCities({ properties }: { properties?: UIProperty[] }) {
     <section className="max-w-7xl mx-auto px-6 py-12">
       {/* HEADER */}
       <div className="mb-8">
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Top Cities</p>
-        <h2 className="text-3xl font-semibold text-[#1A1A1A] font-['Poppins']">Explore Properties in Popular Cities</h2>
+        <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Top Cities</p>
+        <h2 className="text-3xl font-semibold text-gray-900 font-['Poppins']">Explore Properties in Popular Cities</h2>
       </div>
 
       {/* GRID LAYOUT */}
@@ -51,7 +51,7 @@ export function ExploreCities({ properties }: { properties?: UIProperty[] }) {
         {dynamicCities.length > 0 ? dynamicCities.map((city) => (
           <div 
             key={city.name} 
-            className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 flex items-center gap-4 cursor-pointer group border border-gray-50"
+            className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 flex items-center gap-4 cursor-pointer group border border-gray-300/10"
           >
             <img 
               src={getPropertyImage(city.image)} 
@@ -59,7 +59,7 @@ export function ExploreCities({ properties }: { properties?: UIProperty[] }) {
               className="w-20 h-20 rounded-lg object-cover shadow-sm group-hover:shadow transition-shadow"
             />
             <div>
-              <h3 className="font-semibold text-lg text-[#1A1A1A] group-hover:text-[#FF3F6C] transition-colors">{city.name}</h3>
+              <h3 className="font-semibold text-lg text-gray-900 group-hover:text-pink-600 transition-colors">{city.name}</h3>
               <p className="text-sm text-gray-500 mt-0.5">{city.count}</p>
             </div>
           </div>
